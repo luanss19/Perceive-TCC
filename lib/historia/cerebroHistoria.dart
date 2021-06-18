@@ -4,11 +4,11 @@ class cerebroHistoria {
   List<Historia> _storyData = [
     Historia(
         _tituloHistoria:
-        'Your car has blown a tire on a winding road in the middle of nowhere with no cell phone reception. You decide to hitchhike. A rusty pickup truck rumbles to a stop next to you. A man with a wide brimmed hat with soulless eyes opens the passenger door for you and asks: "Need a ride, boy?".',
+        '".',
         _escolha1: 'I\'ll hop in. Thanks for the help!',
         _escolha2: 'Better ask him if he\'s a murderer first.'),
     Historia(
-        _tituloHistoria: 'He nods slowly, unphased by the question.',
+        _tituloHistoria: '',
         _escolha1: 'At least he\'s honest. I\'ll chlimb in.',
         _escolha2: 'Wait, I know how to change a tire.'),
     Historia(
@@ -36,21 +36,20 @@ class cerebroHistoria {
   Historia get story => _storyData[_numeroHisoria];
 
   int _numeroHisoria = 0;
-  void nextStory(int choiceNumber){
+  void proxHistoria(int numeroEscolha){
     switch(_numeroHisoria){
       case 0:
-        choiceNumber == 1 ? _numeroHisoria = 2 : _numeroHisoria = 1;
+        numeroEscolha == 1 ? _numeroHisoria = 2 : _numeroHisoria = 1;
         break;
       case 1:
-        choiceNumber == 1 ? _numeroHisoria = 2 : _numeroHisoria = 3;
+        numeroEscolha == 1 ? _numeroHisoria = 2 : _numeroHisoria = 3;
         break;
       case 2:
-        choiceNumber == 1 ? _numeroHisoria= 5 : _numeroHisoria = 4;
+        numeroEscolha == 1 ? _numeroHisoria= 5 : _numeroHisoria = 4;
         break;
       default:
         _numeroHisoria = 0;
         break;
     }
   }
-  bool buttonShouldBeVisible() => _numeroHisoria <= 2 ? true : false;
 }
