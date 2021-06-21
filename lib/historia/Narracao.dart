@@ -1,10 +1,1 @@
-/*class Narracao {
-  List<Narracao>  = [ {
-  Narracao("")
-  Narracao("")
-  Narracao("")
-  Narracao("")
-  Narracao("")
-  Narracao("")
-  }]
-}*
+//TODO: adicionar conteúdo para as telas de narração sem escolhas

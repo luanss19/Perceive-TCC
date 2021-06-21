@@ -3,33 +3,42 @@ import 'historia.dart';
 class cerebroHistoria {
   List<Historia> _dadosHistoria = [
     Historia(
-        tituloHistoria: '',
-        escolha1: 'I\'ll hop in. Thanks for the help!',
-        escolha2: 'Better ask him if he\'s a murderer first.'),
+        tituloHistoria: 'A',
+        escolha1: 'c',
+        escolha2: 'b',
+        escolha3: '3'
+    ),
+
     Historia(
-        tituloHistoria: '',
-        escolha1: 'At least he\'s honest. I\'ll chlimb in.',
-        escolha2: 'Wait, I know how to change a tire.'),
+        tituloHistoria: 'B',
+        escolha1: 'c',
+        escolha2: '2',
+        escolha3: '3'),
     Historia(
         tituloHistoria:
-        'As you begin to drive, the stranger starts talking about his relationship with his mother. He gets angrier and angrier by the minute. He asks you to open the glovebox. Inside you find a bloody knife, two severed fingers, and a cassette tape of Elton John. He reaches for the glove box.',
-        escolha1: 'I love Elton John! Hand him the cassette tape.',
-        escolha2: 'It\'s him or me! You take the knife and stab him.'),
+        'C',
+        escolha1: 'f',
+        escolha2: '2',
+        escolha3: '3'),
     Historia(
         tituloHistoria:
-        'What? Such a cop out! Did you know traffic accidents are the second leading cause of accidental death for most adult age groups?',
+        'D',
         escolha1: 'Restart',
-        escolha2: ''),
+        escolha2: '2',
+        escolha3: '3'),
     Historia(
         tituloHistoria:
-        'As you smash through the guardrail and careen towards the jagged rocks below you reflect on the dubious wisdom of stabbing someone while they are driving a car you are in.',
+        'E',
         escolha1: 'Restart',
-        escolha2: ''),
+        escolha2: '2',
+        escolha3: '3'),
     Historia(
         tituloHistoria:
-        'You bond with the murderer while crooning verses of "Can you feel the love tonight". He drops you off at the next town. Before you go he asks you if you know any good places to dump bodies. You reply: "Try the pier".',
+        'F',
         escolha1: 'Restart',
-        escolha2: '')
+        escolha2: '',
+        escolha3: ''
+    )
   ];
 
   Historia get historia => _dadosHistoria [_numeroHisoria];

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:perceive/historia/cerebroHistoria.dart';
 import 'package:perceive/telas/telaInventario.dart';
 import 'package:perceive/telas/telaPersonagem.dart';
 
@@ -9,6 +10,8 @@ void main() {
     home: TelaInGame(),
   ));
 }
+
+cerebroHistoria _historia = new cerebroHistoria();
 
 class TelaInGame extends StatefulWidget {
   @override
@@ -32,8 +35,8 @@ class _TelaInGameState extends State<TelaInGame> {
                     SizedBox(
                         width: 350,
                         child:
-                        Text("Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração Narração ",
-                          style: TextStyle(fontSize: 15 ),)),
+                        Text(_historia.historia.tituloHistoria,
+                             style: TextStyle(fontSize: 15 ),)),
                     SizedBox(
                       height: 30,
                     ),
@@ -43,8 +46,10 @@ class _TelaInGameState extends State<TelaInGame> {
                         minWidth: 200.0,
                         child: RaisedButton(
                           color: Colors.grey,
-                          onPressed: () {},
-                          child: Text('Opção 1'),
+                          onPressed: () {
+                            setState(() => _historia.proxHistoria(1));
+                          },
+                          child: Text(_historia.historia.escolha1),
                         ),
                       ),
                     ),
@@ -54,8 +59,10 @@ class _TelaInGameState extends State<TelaInGame> {
                         minWidth: 200.0,
                         child: RaisedButton(
                           color: Colors.grey,
-                          onPressed: () {},
-                          child: Text('Opção 2'),
+                          onPressed: () {
+                            setState(() => _historia.proxHistoria(2));
+                          },
+                          child: Text(_historia.historia.escolha2),
                         ),
                       ),
                     ),
@@ -65,8 +72,10 @@ class _TelaInGameState extends State<TelaInGame> {
                         minWidth: 200.0,
                         child: RaisedButton(
                           color: Colors.grey,
-                          onPressed: () {},
-                          child: Text('Opção 3'),
+                          onPressed: () {
+                            setState(() => _historia.proxHistoria(3));
+                          },
+                          child: Text(_historia.historia.escolha3),
                         ),
                       ),
                     ),
