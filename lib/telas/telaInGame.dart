@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:perceive/historia/cerebroHistoria.dart';
+import 'package:perceive/historia/historia.dart';
 import 'package:perceive/telas/telaInventario.dart';
 import 'package:perceive/telas/telaPersonagem.dart';
 
@@ -43,39 +44,45 @@ class _TelaInGameState extends State<TelaInGame> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ButtonTheme(
-                        minWidth: 200.0,
-                        child: RaisedButton(
-                          color: Colors.grey,
-                          onPressed: () {
-                            setState(() => _historia.proxHistoria(1));
-                          },
-                          child: Text(_historia.historia.escolha1),
+                          minWidth: 200.0,
+                          child: RaisedButton(
+                            color: Colors.grey,
+                            onPressed: () {
+                              setState(() => _historia.proxHistoria(1));
+                            },
+                            child: Text(_historia.historia.escolha1),
+                          ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Visibility(
+                        //visible: _historia.botaoVisivel(),
+                        child: ButtonTheme(
+                          minWidth: 200.0,
+                          child: RaisedButton(
+                            color: Colors.grey,
+                            onPressed: () {
+                              setState(() => _historia.proxHistoria(2));
+                            },
+                            child: Text(_historia.historia.escolha2),
+                          ),
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: ButtonTheme(
-                        minWidth: 200.0,
-                        child: RaisedButton(
-                          color: Colors.grey,
-                          onPressed: () {
-                            setState(() => _historia.proxHistoria(2));
-                          },
-                          child: Text(_historia.historia.escolha2),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ButtonTheme(
-                        minWidth: 200.0,
-                        child: RaisedButton(
-                          color: Colors.grey,
-                          onPressed: () {
-                            setState(() => _historia.proxHistoria(3));
-                          },
-                          child: Text(_historia.historia.escolha3),
+                      child: Visibility(
+                       // visible: _historia.botaoVisivel(),
+                        child: ButtonTheme(
+                          minWidth: 200.0,
+                          child: RaisedButton(
+                            color: Colors.grey,
+                            onPressed: () {
+                              setState(() => _historia.proxHistoria(3));
+                            },
+                            child: Text(_historia.historia.escolha3),
+                          ),
                         ),
                       ),
                     ),
