@@ -1,1 +1,0 @@
-//TODO: adicionar conteúdo para as telas de narração sem escolhas
