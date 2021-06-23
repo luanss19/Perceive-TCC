@@ -50,14 +50,15 @@ class _TelaInGameState extends State<TelaInGame> {
                             onPressed: () {
                               setState(() => _historia.proxHistoria(1));
                             },
-                            child: Text(_historia.historia.escolha1),
+                            child:Text(_historia.historia.escolha1),
+
                           ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Visibility(
-                        //visible: _historia.botaoVisivel(),
+                        visible: _historia.botaoVisivel(),
                         child: ButtonTheme(
                           minWidth: 200.0,
                           child: RaisedButton(
@@ -73,7 +74,7 @@ class _TelaInGameState extends State<TelaInGame> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Visibility(
-                       // visible: _historia.botaoVisivel(),
+                        visible: _historia.botaoVisivel(),
                         child: ButtonTheme(
                           minWidth: 200.0,
                           child: RaisedButton(
@@ -81,7 +82,7 @@ class _TelaInGameState extends State<TelaInGame> {
                             onPressed: () {
                               setState(() => _historia.proxHistoria(3));
                             },
-                            child: Text(_historia.historia.escolha3),
+                            child: Text(_historia.historia.escolha3)
                           ),
                         ),
                       ),
@@ -98,63 +99,67 @@ class _TelaInGameState extends State<TelaInGame> {
       automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       shadowColor: null,
-      title: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Vida",
-                style: TextStyle(color: Colors.black),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                      BoxShadow(color: Colors.black, spreadRadius: 3)
-                    ]),
-                    height: 10,
-                    width: 100,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.red,
+      title: Container(
+        width: MediaQuery.of(context).size.width * 1,
+        color: Colors.white,
+        child: Row(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Vida",
+                  style: TextStyle(color: Colors.black),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                        BoxShadow(color: Colors.black, spreadRadius: 3)
+                      ]),
+                      height: 10,
+                      width: 100,
                     ),
-                    height: 10,
-                    width: 50,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Column(
-            children: [
-              Text(
-                "Ouro",
-                style: TextStyle(color: Colors.black),
-              ),
-              Text(
-                "\$175",
-                style: TextStyle(color: Colors.black, fontSize: 15),
-              ),
-            ],
-          ),
-          SizedBox(
-            width: 190,
-          ),
-          GestureDetector(
-            child: Icon(
-              Icons.pause,
-              color: Colors.black,
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                      ),
+                      height: 10,
+                      width: 50,
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ),
-        ],
+            SizedBox(
+              width: 20,
+            ),
+            Column(
+              children: [
+                Text(
+                  "Ouro",
+                  style: TextStyle(color: Colors.black),
+                ),
+                Text(
+                  "\$175",
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 150
+            ),
+            GestureDetector(
+                child: Icon(
+                  Icons.pause,
+                  color: Colors.black,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
