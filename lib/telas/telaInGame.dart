@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:perceive/historia/cerebroHistoria.dart';
 import 'package:perceive/historia/historia.dart';
+import 'package:perceive/telas/telaInicial.dart';
 import 'package:perceive/telas/telaInventario.dart';
 import 'package:perceive/telas/telaPersonagem.dart';
 
@@ -74,7 +75,7 @@ class _TelaInGameState extends State<TelaInGame> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Visibility(
-                        visible: _historia.botaoVisivel(),
+                        visible: _historia.botaoVisivel2(),
                         child: ButtonTheme(
                           minWidth: 200.0,
                           child: RaisedButton(
@@ -152,11 +153,18 @@ class _TelaInGameState extends State<TelaInGame> {
             SizedBox(
               width: 150
             ),
-            GestureDetector(
+            InkWell(
+                onTap: (){
+                  Navigator.pop(context);
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                  builder: (contex) => TelaInicial()));
+                  },
                 child: Icon(
-                  Icons.pause,
-                  color: Colors.black,
-              ),
+                    Icons.pause,
+                    color: Colors.black,
+                ),
             ),
           ],
         ),

@@ -3,21 +3,25 @@ import 'historia.dart';
 class cerebroHistoria {
 
   List<Historia> _dadosHistoria = [
-    Historia(tituloHistoria: 'Descrição da ambientação', escolha1: 'Próximo'),//0
+    Historia(tituloHistoria: 'Algumas centenas de anos atrás, o Continente de NOMECONTINENTE estava em sua era de ouro pelos bens que a magia trouxera à população local. Magos, guerreiros, e criaturas mágicas vagavam pelas terras de NOMEPAÍS.',
+        escolha1: 'Próximo'),//0
 
-    Historia(tituloHistoria: 'Descrença em magia', escolha1: 'Próximo'),//1
+    Historia(tituloHistoria: 'Após anos de uso irresponsável dos poderes mágicos dados pelos deuses, os humanos perceberam que sua ganância tinha os levado à um caminho sem volta.Por algum motivo as linhas mágicas que ligavam cada ser ao mundo foram seladas, e a magia virou um mito. E os mitos caíram em esquecimento.',
+        escolha1: 'Próximo'),//1
 
-    Historia(tituloHistoria: 'Onde se passa', escolha1: 'Próximo'),//2
+    Historia(tituloHistoria: 'Na cidade de NOMECIDADE os ventos sibilantes pediam por mudanças, as terras estavam inférteis e o povo descontente por como estavam sendo tratados pelo soberano local. As terras que antes abrigavam vida hoje abrigam desesperança',
+        escolha1: 'Próximo'),//2
 
-    Historia(tituloHistoria: 'Apresentar uma Fação maior', escolha1: 'Próximo'),//3
+    Historia(tituloHistoria: 'Os reis de cada nação controlam seu súditos com mãos de ferro, e estes são auxiliados pelas ordens religiosas ORDEM1, ORDEM2 e ORDEM3, que representam os três deuses do panteão do continente DEUS1, DEUS2 E DEUS3. A região de cidade é auxiliada pela ordem ORDEM1.',
+        escolha1: 'Próximo'),//3
 
-    Historia(tituloHistoria: 'Breve descrição do local do herói', escolha1: 'Próximo'),//4
+    Historia(tituloHistoria: 'No subúrbio da cidade NOMECIDADE onde bêbados, mendigos e todo tipo de maltrapilhos passavam havia uma casa onde até mesmo os mais corajosos tinham um pouco de receio de chegar, suas janelas estavam sempre cobertas por espessas cortinas negras, o que deixava esse local nem um pouco convidativo.',
+        escolha1: 'Próximo'),//4
 
-    Historia(tituloHistoria: 'Descrição da abientação até alguém bater em sua porta',//5
+    Historia(tituloHistoria: 'Pelas ruas lamacentas dos subúrbios, passos pesados podiam ser ouvidos em direção à peculiar casa. Com uma respiração ofegante Lázaro, o mensageiro real, chegava e se preparava para bater à porta que possuía pequenos buracos feitos por cupins. ',//5
         escolha1: 'Abrir a porta',
         escolha2: 'Demorar a abrir a porta',
-        escolha3: 'Mandar embora'
-    ),
+        escolha3: 'Mandar embora'),//5
 
     Historia(tituloHistoria: 'Resposta agradável', escolha1: 'Próximo'),//6
 
@@ -27,22 +31,25 @@ class cerebroHistoria {
 
     Historia(tituloHistoria: 'Apresentação de objetivo', escolha1: 'Próximo'),//9
 
-    Historia(tituloHistoria: 'Descrição do personagem indo embora/Tentativa em outro dia',//10
+    Historia(tituloHistoria: 'Após essa tentativa falha de fazer seu comunicado, Lázaro bufa proferindo xingamentos  contidos e fala em voz alta “Voltarei amanhã, e espero mais respeito”. Assim como prometido, na manhã seguinte Lázaro se encontra batendo na mesma velha porta sob uma forte chuva.',//10
       escolha1:'Pedir desculpas pelo outro dia',
-      escolha2: 'Mandar embora de novo (fim precoce)'
-    ),
+      escolha2: 'Mandar embora de novo'),//10
 
-    Historia(tituloHistoria: 'Apresentação das caracteristicas personagem', escolha1: 'Próximo'),//1
+    Historia(tituloHistoria: 'Apresentação das caracteristicas personagem', escolha1: 'Próximo'),//11
 
-    Historia(tituloHistoria: 'Fim precoce do jogo/descrição consequencias de não aceitar', escolha1: 'Próximo'),//12
+    Historia(tituloHistoria: 'Após lutar contra seu destino, o nosso herói seguiu o marasmo de sua vida. Caindo em dívidas devido às sabotagens que sua carreira sofreu por aquele que seria seu contratante.', escolha1: 'Próximo'),//12
 
-    Historia(tituloHistoria: 'Tela de game-over', escolha1: 'Próximo'),//13
+    Historia(tituloHistoria: 'Fim.', escolha1: 'Reiniciar Jogo.'),//13
 
-    Historia(tituloHistoria: 'Dialogo outro personagem', escolha1: 'Perguntar o que veio fazer aqui',escolha2: 'Pedir para entrar e sairda chuva'),//14
+    Historia(tituloHistoria: 'Dialogo outro personagem',
+        escolha1: 'Perguntar o que veio fazer aqui',
+        escolha2: 'Pedir para entrar e sair da chuva'),//14
 
     Historia(tituloHistoria: 'Resposta explicando missao', escolha1: 'Próximo'),//15
 
-    Historia(tituloHistoria: 'Resposta explicando missao exaltando passado e escolha de resposta do player', escolha1: 'Resposta aceitando missao', escolha2: 'Resposta agradecendo elogio'), //16
+    Historia(tituloHistoria: 'Resposta explicando missao exaltando passado e escolha de resposta do player',
+        escolha1: 'Resposta aceitando missao',
+        escolha2: 'Resposta agradecendo elogio'), //16
 
     Historia(tituloHistoria: 'Resposta aceitando missao e perguntando sobre recompensa', escolha1: 'Próximo'),//17
 
@@ -67,6 +74,25 @@ class cerebroHistoria {
   bool eNarracao = true;
 
   bool botaoVisivel() => eNarracao == false ? true : false;
+  bool botaoVisivel2() {
+    if(eNarracao == false && _numeroHistoria == 10){
+      return false;
+    }
+    else if(eNarracao == false && _numeroHistoria == 14){
+      return false;
+    }
+    else if(eNarracao == false && _numeroHistoria == 16){
+      return false;
+    }
+    else if (eNarracao == false){
+      return true;
+    }
+    else if (eNarracao == true){
+      return false;
+    }
+    return false;
+  }
+
 
   int _numeroHistoria = 0;
 
@@ -96,21 +122,19 @@ class cerebroHistoria {
           break;
         case 5:
           if (numeroEscolha == 1) { //abrir porta bom
-            print(numeroEscolha);
             _numeroHistoria = 6;
             eNarracao = true;
             break;
           }
           else if (numeroEscolha == 2) { //abrir porta demorando
-            print(numeroEscolha);
             _numeroHistoria = 7;
             eNarracao = true;
             break;
           }
           else if (numeroEscolha == 3) { //mandar embora
-            print(numeroEscolha);
             _numeroHistoria = 8;
             eNarracao = true;
+
             break;
           }
           break;
@@ -129,14 +153,15 @@ class cerebroHistoria {
         case 9: //Apresentação de objetivo
           _numeroHistoria = 11;
           eNarracao = true;
-          print(_numeroHistoria);
           break;
         case 10: //Descriçao do personagem indo embora/tentativa em outro dia
           if (numeroEscolha == 1) { //pedir desculpas
             _numeroHistoria = 9;
+            eNarracao = true;
           }
           else if (numeroEscolha == 2) { //mandar embora (fim)
             _numeroHistoria = 12;
+            eNarracao = true;
           }
           break;
         case 11: //Apresentação das caracteristicas personagem
