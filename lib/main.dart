@@ -1,10 +1,11 @@
 import 'package:perceive/telas/telaCadastro.dart';
 import 'package:perceive/telas/telaLogin.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
     title: 'Perceive',
     home: Home(),
   ));
