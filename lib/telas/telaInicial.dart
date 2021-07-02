@@ -1,16 +1,20 @@
+import 'package:perceive/dados/salvamento.dart';
 import 'package:perceive/telas/telaAcessibilidade.dart';
-import 'package:perceive/telas/telaCadastro.dart';
+import 'package:perceive/historia/cerebroHistoria.dart';
 import 'package:perceive/telas/telaInGame.dart';
-import 'package:perceive/telas/telaLogin.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 void main() {
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
     title: 'Perceive',
     home: TelaInicial(),
   ));
 }
+
+Salvamento _salvamento = new Salvamento();
+cerebroHistoria _historia = new cerebroHistoria();
 
 class TelaInicial extends StatefulWidget {
   @override
@@ -37,7 +41,11 @@ class _TelaInicialState extends State<TelaInicial> {
                     minWidth: 200.0,
                     child: RaisedButton(
                       color: Colors.grey,
-                      onPressed: () {Navigator.push(
+                      onPressed: () {
+                        _historia.numeroHistoria = 0;
+                        print(_historia.numeroHistoria);
+                        _salvamento.novoJogo();
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                           builder: (contex) => TelaInGame()));
@@ -52,12 +60,15 @@ class _TelaInicialState extends State<TelaInicial> {
                     minWidth: 200.0,
                     child: RaisedButton(
                       color: Colors.grey,
-                      onPressed: () {Navigator.push(
+                      onPressed: () {
+                        _salvamento.carregarJogo('historia').then((value) => _historia.numeroHistoria = value);
+                        print(_historia.numeroHistoria);
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (contex) => TelaInGame()));
                       },
-                      child: Text('Continuar'),
+                      child: Text('Continuar Jogo'),
                     ),
                   ),
                 ),
@@ -67,7 +78,8 @@ class _TelaInicialState extends State<TelaInicial> {
                     minWidth: 200.0,
                     child: RaisedButton(
                       color: Colors.grey,
-                      onPressed: () {Navigator.push(
+                      onPressed: () {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (contex) => TelaInGame()));

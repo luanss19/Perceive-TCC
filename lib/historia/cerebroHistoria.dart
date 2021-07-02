@@ -107,45 +107,37 @@ class cerebroHistoria {
     switch (numeroHistoria) {
         case 0:
           numeroHistoria = 1;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
         case 1:
           numeroHistoria = 2;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
         case 2:
           numeroHistoria = 3;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
         case 3:
           numeroHistoria = 4;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
         case 4:
           numeroHistoria = 5;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = false;
           break;
         case 5:
           if (numeroEscolha == 1) { //abrir porta bom
             numeroHistoria = 6;
-            _salvamento.salvarJogo('historia', numeroHistoria);
             eNarracao = true;
             break;
           }
           else if (numeroEscolha == 2) { //abrir porta demorando
             numeroHistoria = 7;
-            _salvamento.salvarJogo('historia', numeroHistoria);
             eNarracao = true;
             break;
           }
           else if (numeroEscolha == 3) { //mandar embora
             numeroHistoria = 8;
-            _salvamento.salvarJogo('historia', numeroHistoria);
             eNarracao = true;
 
             break;
@@ -153,118 +145,96 @@ class cerebroHistoria {
           break;
         case 6: //resposta boa
           numeroHistoria = 9;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
         case 7: //resposta irritada
           numeroHistoria = 9;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
         case 8: //resposta rude/volta outro dia
           numeroHistoria = 10;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = false;
           break;
         case 9: //Apresentação de objetivo
           numeroHistoria = 11;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
         case 10: //Descriçao do personagem indo embora/tentativa em outro dia
           if (numeroEscolha == 1) { //pedir desculpas
             numeroHistoria = 9;
-            _salvamento.salvarJogo('historia', numeroHistoria);
             eNarracao = true;
           }
           else if (numeroEscolha == 2) { //mandar embora (fim)
             numeroHistoria = 12;
-            _salvamento.salvarJogo('historia', numeroHistoria);
             eNarracao = true;
           }
           break;
         case 11: //Apresentação das caracteristicas personagem
           numeroHistoria = 14;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = false;
           break;
         case 12: //Fim precoce do jogo/descrição consequencias de não aceitar
           numeroHistoria = 13;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
         case 13: //tela de game-over
           numeroHistoria = 0;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
         case 14: // dialogo outro personagem
           if (numeroEscolha == 1) { //Perguntar o que veio fazer aqui
             numeroHistoria = 15;
-            _salvamento.salvarJogo('historia', numeroHistoria);
             eNarracao = true;
           }
           else if (numeroEscolha == 2) { //Pedir para entrar e sairda chuva
             numeroHistoria = 16;
-            _salvamento.salvarJogo('historia', numeroHistoria);
             eNarracao = false;
           }
           break;
         case 15: //resposta explicando missao
           numeroHistoria = 17;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
         case 16://resposta explicando missao exaltando passado e escolha de resposta do player
           if (numeroEscolha == 1) { //resposta aceitando missao
             numeroHistoria = 19;
-            _salvamento.salvarJogo('historia', numeroHistoria);
             eNarracao = true;
           }
           else if (numeroEscolha == 2) { //resposta agradecendo elogio
             numeroHistoria = 20;
-            _salvamento.salvarJogo('historia', numeroHistoria);
             eNarracao = true;
           }
           break;
         case 17:// resposta aceitando missao e perguntando sobre recompensa
           numeroHistoria = 18;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
         case 18: //resposta falando da recompensa de maneira desleixada
           numeroHistoria = 19;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
         case 19: //heroi repensando escolha
           numeroHistoria = 21;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
         case 20: //resposta reafirmando elogio e falando da recompensa
           numeroHistoria = 19;
-          _salvamento.salvarJogo('historia', numeroHistoria);
           eNarracao = true;
           break;
       case 21: //Heroi se preparando e pegando itens
         numeroHistoria = 22;
-        _salvamento.salvarJogo('historia', numeroHistoria);
         eNarracao = true;
         break;
       case 22: //Descrição de como estão os itens na casa e como são
         numeroHistoria = 23;
-        _salvamento.salvarJogo('historia', numeroHistoria);
         eNarracao = true;
         break;
       case 23: //Mensagem do jogo explicando sistema de inventario
         numeroHistoria = 24;
-        _salvamento.salvarJogo('historia', numeroHistoria);
         eNarracao = true;
         break;
       case 24: //Saida para a jornada/fim Demo
         numeroHistoria = 0;
-        _salvamento.salvarJogo('historia', numeroHistoria);
         eNarracao = true;
         Get.back();
         Get.to(() => TelaInicial());
