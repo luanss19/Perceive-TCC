@@ -1,4 +1,6 @@
+import 'package:perceive/dados/jogador.dart';
 import 'package:perceive/dados/salvamento.dart';
+import 'package:perceive/telas/criacaoJogador.dart';
 import 'package:perceive/telas/telaAcessibilidade.dart';
 import 'package:perceive/historia/cerebroHistoria.dart';
 import 'package:perceive/telas/telaInGame.dart';
@@ -13,7 +15,6 @@ void main() {
   ));
 }
 
-Salvamento _salvamento = new Salvamento();
 cerebroHistoria _historia = new cerebroHistoria();
 
 class TelaInicial extends StatefulWidget {
@@ -22,6 +23,10 @@ class TelaInicial extends StatefulWidget {
 }
 
 class _TelaInicialState extends State<TelaInicial> {
+
+  List<Jogador> jogadores = [];
+
+  Salvamento salvamento = Salvamento();
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
@@ -43,12 +48,10 @@ class _TelaInicialState extends State<TelaInicial> {
                       color: Colors.grey,
                       onPressed: () {
                         _historia.numeroHistoria = 0;
-                        print(_historia.numeroHistoria);
-                        _salvamento.novoJogo();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                          builder: (contex) => TelaInGame()));
+                          builder: (contex) => _criacaoJogador(jogador: jogadores[1])));
                       },
                       child: Text('Novo Jogo'),
                     ),
@@ -61,7 +64,6 @@ class _TelaInicialState extends State<TelaInicial> {
                     child: RaisedButton(
                       color: Colors.grey,
                       onPressed: () {
-                        _salvamento.carregarJogo('historia').then((value) => _historia.numeroHistoria = value);
                         print(_historia.numeroHistoria);
                         Navigator.push(
                           context,
@@ -128,5 +130,17 @@ class _TelaInicialState extends State<TelaInicial> {
             ])));
 
   }
+  _criacaoJogador({required Jogador jogador}) async {
+    final jogadorRetornado = await Navigator.push(context,
+        MaterialPageRoute(builder: (contxt) => criacaoJogador(jogador: jogador)));
 
+    if(jogadorRetornado != null) {
+      if(jogador != null) {
+        await salvamento.atualizarJogador(jogadorRetornado);
+      }
+      else {
+        await salvamento.salvar(jogadorRetornado);
+      }
+    }
+  }
 }

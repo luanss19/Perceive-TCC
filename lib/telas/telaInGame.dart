@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:perceive/dados/jogador.dart';
 import 'package:perceive/dados/salvamento.dart';
 import 'package:perceive/historia/cerebroHistoria.dart';
-import 'package:perceive/historia/historia.dart';
 import 'package:perceive/telas/telaInicial.dart';
 import 'package:perceive/telas/telaInventario.dart';
 import 'package:perceive/telas/telaPersonagem.dart';
@@ -23,6 +23,7 @@ class TelaInGame extends StatefulWidget {
 }
 
 class _TelaInGameState extends State<TelaInGame> {
+  late Jogador jogador;
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: barraSuperior(),
@@ -52,7 +53,7 @@ class _TelaInGameState extends State<TelaInGame> {
                             color: Colors.grey,
                             onPressed: () {
                               setState(() => _historia.proxHistoria(1));
-                              _salvamento.salvarJogo('historia', _historia.numeroHistoria);
+                              _salvamento.salvar(jogador);
                             },
                             child:Text(_historia.historia.escolha1),
 
@@ -69,7 +70,7 @@ class _TelaInGameState extends State<TelaInGame> {
                             color: Colors.grey,
                             onPressed: () {
                               setState(() => _historia.proxHistoria(2));
-                              _salvamento.salvarJogo('historia', _historia.numeroHistoria);
+                              _salvamento.salvar(jogador);
                             },
                             child: Text(_historia.historia.escolha2),
                           ),
@@ -86,7 +87,7 @@ class _TelaInGameState extends State<TelaInGame> {
                             color: Colors.grey,
                             onPressed: () {
                               setState(() => _historia.proxHistoria(3));
-                              _salvamento.salvarJogo('historia', _historia.numeroHistoria);
+                              _salvamento.salvar(jogador);
                               print(_historia.numeroHistoria);
                             },
                             child: Text(_historia.historia.escolha3)

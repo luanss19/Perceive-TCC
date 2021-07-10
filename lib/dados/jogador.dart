@@ -1,17 +1,17 @@
-import 'package:perceive/dados/JogadorHelper.dart';
+import 'package:perceive/dados/salvamento.dart';
 
 class Jogador {
-  int id;
-  String nome;
-  int historia;
-  int vida;
-  int ataque;
-  int defesa;
-  int arma;
-  int armadura;
-  int item1;
-  int item2;
-  int item3;
+ late int id;
+ late String nome;
+ late int historia;
+ late int vida;
+ late int ataque;
+ late int defesa;
+ late int arma;
+ late int armadura;
+ late int item1;
+ late int item2;
+ late int item3;
 
   Jogador();
 
@@ -29,7 +29,7 @@ class Jogador {
     item3 =   map[colunaItem3];
   }
 
-  Map toMap() {
+  toMap() {
     Map<String, dynamic> map = {
       colunaId: id,
       colunaNome: nome,

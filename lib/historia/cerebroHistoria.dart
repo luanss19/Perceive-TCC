@@ -76,6 +76,8 @@ class cerebroHistoria {
 
   bool eNarracao = true;
 
+
+
 //funcões para deixar botoes invisiveis se for tela de narracao
   bool botaoVisivel() => eNarracao == false ? true : false;
   bool botaoVisivel2() {
@@ -97,9 +99,9 @@ class cerebroHistoria {
     return false;
   }
 
+  Salvamento salvamento = Salvamento();
 
   int numeroHistoria = 0;
-  Salvamento _salvamento = new Salvamento();
 
   Historia get historia => _dadosHistoria[numeroHistoria];
 
