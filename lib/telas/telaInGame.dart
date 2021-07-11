@@ -6,6 +6,7 @@ import 'package:perceive/historia/cerebroHistoria.dart';
 import 'package:perceive/telas/telaInicial.dart';
 import 'package:perceive/telas/telaInventario.dart';
 import 'package:perceive/telas/telaPersonagem.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -18,13 +19,24 @@ Salvamento _salvamento = new Salvamento();
 cerebroHistoria _historia = new cerebroHistoria();
 
 class TelaInGame extends StatefulWidget {
+
   @override
   _TelaInGameState createState() => _TelaInGameState();
 }
 
 class _TelaInGameState extends State<TelaInGame> {
   late Jogador jogador;
+  final FlutterTts flutterTts = FlutterTts();
+
   Widget build(BuildContext context) {
+    speak(String text) async{
+      await flutterTts.setLanguage("pt-BR");
+      await flutterTts.setPitch(1);
+      await flutterTts.speak(text);
+      if(_historia.numeroHistoria == 0){
+        await flutterTts.stop();
+      }
+    }
     return Scaffold(
         appBar: barraSuperior(),
         bottomNavigationBar: barraInferior(),
@@ -52,7 +64,10 @@ class _TelaInGameState extends State<TelaInGame> {
                           child: RaisedButton(
                             color: Colors.grey,
                             onPressed: () {
-                              setState(() => _historia.proxHistoria(1));
+                              setState(() {
+                                _historia.proxHistoria(1);
+                                speak(_historia.historia.tituloHistoria);
+                              });
                               _salvamento.salvar(jogador);
                             },
                             child:Text(_historia.historia.escolha1),
@@ -69,7 +84,10 @@ class _TelaInGameState extends State<TelaInGame> {
                           child: RaisedButton(
                             color: Colors.grey,
                             onPressed: () {
-                              setState(() => _historia.proxHistoria(2));
+                              setState((){
+                              speak(_historia.historia.tituloHistoria);
+                              _historia.proxHistoria(2);
+                              });
                               _salvamento.salvar(jogador);
                             },
                             child: Text(_historia.historia.escolha2),
@@ -86,7 +104,10 @@ class _TelaInGameState extends State<TelaInGame> {
                           child: RaisedButton(
                             color: Colors.grey,
                             onPressed: () {
-                              setState(() => _historia.proxHistoria(3));
+                              setState(() {
+                                speak(_historia.historia.tituloHistoria);
+                                _historia.proxHistoria(3);
+                              });
                               _salvamento.salvar(jogador);
                               print(_historia.numeroHistoria);
                             },

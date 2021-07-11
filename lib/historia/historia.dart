@@ -19,4 +19,6 @@ class Historia {
   String get escolha1 => _escolha1;
 
   String get tituloHistoria => _tituloHistoria;
+
+  get numeroHistoria => null;
 }

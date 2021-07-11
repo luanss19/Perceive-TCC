@@ -51,7 +51,7 @@ class _TelaInicialState extends State<TelaInicial> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                          builder: (contex) => _criacaoJogador(jogador: jogadores[1])));
+                              builder: (contex) => TelaInGame()));
                       },
                       child: Text('Novo Jogo'),
                     ),
