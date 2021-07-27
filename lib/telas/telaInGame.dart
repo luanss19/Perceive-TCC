@@ -7,6 +7,7 @@ import 'package:perceive/telas/telaInicial.dart';
 import 'package:perceive/telas/telaInventario.dart';
 import 'package:perceive/telas/telaPersonagem.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:perceive/dados/global.dart' as globais;
 
 void main() {
   runApp(MaterialApp(
@@ -15,7 +16,7 @@ void main() {
   ));
 }
 
-Salvamento _salvamento = new Salvamento();
+
 cerebroHistoria _historia = new cerebroHistoria();
 
 class TelaInGame extends StatefulWidget {
@@ -29,12 +30,29 @@ class _TelaInGameState extends State<TelaInGame> {
   final FlutterTts flutterTts = FlutterTts();
 
   Widget build(BuildContext context) {
-    speak(String text) async{
-      await flutterTts.setLanguage("pt-BR");
-      await flutterTts.setPitch(1);
-      await flutterTts.speak(text);
-      if(_historia.numeroHistoria == 0){
-        await flutterTts.stop();
+
+
+    // lerOpcoes() async {
+    //   await flutterTts.setLanguage("pt-BR");
+    //   await flutterTts.setPitch(1);
+    //
+    //
+    // }
+
+    lerHistoria(String narracao, String escolha1, String escolha2, String escolha3) async{
+      if(globais.acessibilidadeOn == true){
+        await flutterTts.setLanguage("pt-BR");
+        await flutterTts.setPitch(1);
+        await flutterTts.speak(
+            narracao + "Escolha 1 :" + escolha1 + "Escolha 2 :" + escolha2 +
+                "Escolha 3 :" + escolha3);
+        if (_historia.numeroHistoria == 0) {
+          await flutterTts.stop();
+      } else if (_historia.numeroHistoria == 1) {
+        await flutterTts.speak("Escolha 1 : Proximo");
+      }
+      }else if(globais.acessibilidadeOn == false) {
+
       }
     }
     return Scaffold(
@@ -65,10 +83,14 @@ class _TelaInGameState extends State<TelaInGame> {
                             color: Colors.grey,
                             onPressed: () {
                               setState(() {
+                                print(globais.acessibilidadeOn);
+                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
+                                print(_historia.historia.escolha1);
+                                print(_historia.historia.escolha2);
+                                print(_historia.historia.escolha3);
+                                // lerOpcoes();
                                 _historia.proxHistoria(1);
-                                speak(_historia.historia.tituloHistoria);
                               });
-                              _salvamento.salvar(jogador);
                             },
                             child:Text(_historia.historia.escolha1),
 
@@ -85,10 +107,9 @@ class _TelaInGameState extends State<TelaInGame> {
                             color: Colors.grey,
                             onPressed: () {
                               setState((){
-                              speak(_historia.historia.tituloHistoria);
+                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
                               _historia.proxHistoria(2);
                               });
-                              _salvamento.salvar(jogador);
                             },
                             child: Text(_historia.historia.escolha2),
                           ),
@@ -105,10 +126,10 @@ class _TelaInGameState extends State<TelaInGame> {
                             color: Colors.grey,
                             onPressed: () {
                               setState(() {
-                                speak(_historia.historia.tituloHistoria);
+                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
+                               // lerOpcoes();
                                 _historia.proxHistoria(3);
                               });
-                              _salvamento.salvar(jogador);
                               print(_historia.numeroHistoria);
                             },
                             child: Text(_historia.historia.escolha3)

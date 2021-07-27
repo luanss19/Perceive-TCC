@@ -1,3 +1,4 @@
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:perceive/dados/jogador.dart';
 import 'package:perceive/dados/salvamento.dart';
 import 'package:perceive/telas/criacaoJogador.dart';
@@ -7,6 +8,7 @@ import 'package:perceive/telas/telaInGame.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:perceive/dados/global.dart' as globais;
 
 void main() {
   runApp(GetMaterialApp(
@@ -25,9 +27,16 @@ class TelaInicial extends StatefulWidget {
 class _TelaInicialState extends State<TelaInicial> {
 
   List<Jogador> jogadores = [];
+  final FlutterTts flutterTts = FlutterTts();
 
   Salvamento salvamento = Salvamento();
   Widget build(BuildContext context) {
+    speak(String text) async{
+      await flutterTts.setLanguage("pt-BR");
+      await flutterTts.setPitch(1);
+      await flutterTts.speak(text);
+
+    }
     return Scaffold(
         body: Center(
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
@@ -47,12 +56,14 @@ class _TelaInicialState extends State<TelaInicial> {
                     child: RaisedButton(
                       color: Colors.grey,
                       onPressed: () {
+                        setState(() {
                         _historia.numeroHistoria = 0;
+                        speak(_historia.historia.tituloHistoria);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (contex) => TelaInGame()));
-                      },
+                        });},
                       child: Text('Novo Jogo'),
                     ),
                   ),
@@ -100,6 +111,7 @@ class _TelaInicialState extends State<TelaInicial> {
                           context,
                           MaterialPageRoute(
                               builder: (contex) => TelaAcessibilidade()));
+                      print(globais.acessibilidadeOn);
                       },
                       child: Text('Opções de acessibilidade'),
                       ),

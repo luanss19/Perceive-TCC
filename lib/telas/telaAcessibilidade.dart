@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:perceive/dados/global.dart' as globais;
 
 void main() {
   runApp(MaterialApp(
@@ -13,12 +14,14 @@ class TelaAcessibilidade extends StatefulWidget {
   _TelaAcessibilidadeState createState() => _TelaAcessibilidadeState();
 }
 
-enum SingingCharacter { ligado, desligado }
+enum acessibilidadeController { ligado, desligado }
 
 class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
-  SingingCharacter? _character = SingingCharacter.desligado;
+
+  acessibilidadeController? _onOff = globais.acessibilidadeOn == true ? acessibilidadeController.ligado : acessibilidadeController.desligado;
   double _sliderMusica = 20;
   double _sliderNarracao = 50;
+
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,24 +44,26 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
                 SizedBox(
                   height: 10,
                 ),
-                RadioListTile<SingingCharacter>(
+                RadioListTile<acessibilidadeController>(
                   title: const Text('Ligado', style: TextStyle(fontSize: 15)),
-                  value: SingingCharacter.ligado,
-                  groupValue: _character,
-                  onChanged: (SingingCharacter? value) {
+                  value: acessibilidadeController.ligado,
+                  groupValue: _onOff,
+                  onChanged: (acessibilidadeController? value) {
                     setState(() {
-                      _character = value;
+                      _onOff = value;
+                      check(_onOff!);
                     });
                   },
                 ),
-                RadioListTile<SingingCharacter>(
+                RadioListTile<acessibilidadeController>(
                   title:
                       const Text('Desligado', style: TextStyle(fontSize: 15)),
-                  value: SingingCharacter.desligado,
-                  groupValue: _character,
-                  onChanged: (SingingCharacter? value) {
+                  value: acessibilidadeController.desligado,
+                  groupValue: _onOff,
+                  onChanged: (acessibilidadeController? value) {
                     setState(() {
-                      _character = value;
+                      _onOff = value;
+                      check(_onOff!);
                     });
                   },
                 ),
@@ -103,6 +108,14 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
         )));
   }
 
+  check(acessibilidadeController _onOff){
+    if(_onOff == acessibilidadeController.ligado){
+      globais.acessibilidadeOn = true;
+    }else if (_onOff == acessibilidadeController.desligado){
+      globais.acessibilidadeOn = false;
+    }
+    print(globais.acessibilidadeOn);
+  }
   barraSuperior() {
     return AppBar(
         iconTheme: IconThemeData(
