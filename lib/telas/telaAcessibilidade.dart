@@ -18,9 +18,9 @@ enum acessibilidadeController { ligado, desligado }
 
 class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
 
-  acessibilidadeController? _onOff = globais.acessibilidadeOn == true ? acessibilidadeController.ligado : acessibilidadeController.desligado;
-  double _sliderMusica = 20;
-  double _sliderNarracao = 50;
+  acessibilidadeController? _onOff = globais.Globais.acessibilidadeOn == true ? acessibilidadeController.ligado : acessibilidadeController.desligado;
+  double _sliderMusica = 50;
+  double _sliderNarracao = globais.Globais.volumeTTS*100;
 
 
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
                   onChanged: (acessibilidadeController? value) {
                     setState(() {
                       _onOff = value;
-                      check(_onOff!);
+                      checkAcessibilidade(_onOff!);
                     });
                   },
                 ),
@@ -63,7 +63,7 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
                   onChanged: (acessibilidadeController? value) {
                     setState(() {
                       _onOff = value;
-                      check(_onOff!);
+                      checkAcessibilidade(_onOff!);
                     });
                   },
                 ),
@@ -82,11 +82,12 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
                     value: _sliderNarracao,
                     min: 0,
                     max: 100,
-                    divisions: 10,
+                    divisions: 5,
                     label: _sliderNarracao.round().toString(),
                     onChanged: (double value) {
                       setState(() {
                         _sliderNarracao = value;
+                        checkVolume(_sliderNarracao);
                       });
                     }),
                 SizedBox(
@@ -97,7 +98,7 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
                     value: _sliderMusica,
                     min: 0,
                     max: 100,
-                    divisions: 10,
+                    divisions: 5,
                     label: _sliderMusica.round().toString(),
                     onChanged: (double value) {
                       setState(() {
@@ -108,13 +109,19 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
         )));
   }
 
-  check(acessibilidadeController _onOff){
+  checkVolume(double volume){
+    globais.Globais.volumeTTS = volume/100;
+    print(globais.Globais.volumeTTS);
+    print(globais.Globais.acessibilidadeOn);
+  }
+
+  checkAcessibilidade(acessibilidadeController _onOff){
     if(_onOff == acessibilidadeController.ligado){
-      globais.acessibilidadeOn = true;
+      globais.Globais.acessibilidadeOn = true;
     }else if (_onOff == acessibilidadeController.desligado){
-      globais.acessibilidadeOn = false;
+      globais.Globais.acessibilidadeOn = false;
     }
-    print(globais.acessibilidadeOn);
+    print(globais.Globais.acessibilidadeOn);
   }
   barraSuperior() {
     return AppBar(

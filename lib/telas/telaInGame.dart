@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:perceive/dados/jogador.dart';
-import 'package:perceive/dados/salvamento.dart';
 import 'package:perceive/historia/cerebroHistoria.dart';
 import 'package:perceive/telas/telaInicial.dart';
 import 'package:perceive/telas/telaInventario.dart';
@@ -31,30 +30,6 @@ class _TelaInGameState extends State<TelaInGame> {
 
   Widget build(BuildContext context) {
 
-
-    // lerOpcoes() async {
-    //   await flutterTts.setLanguage("pt-BR");
-    //   await flutterTts.setPitch(1);
-    //
-    //
-    // }
-
-    lerHistoria(String narracao, String escolha1, String escolha2, String escolha3) async{
-      if(globais.acessibilidadeOn == true){
-        await flutterTts.setLanguage("pt-BR");
-        await flutterTts.setPitch(1);
-        await flutterTts.speak(
-            narracao + "Escolha 1 :" + escolha1 + "Escolha 2 :" + escolha2 +
-                "Escolha 3 :" + escolha3);
-        if (_historia.numeroHistoria == 0) {
-          await flutterTts.stop();
-      } else if (_historia.numeroHistoria == 1) {
-        await flutterTts.speak("Escolha 1 : Proximo");
-      }
-      }else if(globais.acessibilidadeOn == false) {
-
-      }
-    }
     return Scaffold(
         appBar: barraSuperior(),
         bottomNavigationBar: barraInferior(),
@@ -82,14 +57,11 @@ class _TelaInGameState extends State<TelaInGame> {
                           child: RaisedButton(
                             color: Colors.grey,
                             onPressed: () {
+                              print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
+                              lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
+                              _historia.proxHistoria(1);
                               setState(() {
-                                print(globais.acessibilidadeOn);
-                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
-                                print(_historia.historia.escolha1);
-                                print(_historia.historia.escolha2);
-                                print(_historia.historia.escolha3);
-                                // lerOpcoes();
-                                _historia.proxHistoria(1);
+
                               });
                             },
                             child:Text(_historia.historia.escolha1),
@@ -106,9 +78,11 @@ class _TelaInGameState extends State<TelaInGame> {
                           child: RaisedButton(
                             color: Colors.grey,
                             onPressed: () {
-                              setState((){
-                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
+                              print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
+                              lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
                               _historia.proxHistoria(2);
+                              setState((){
+
                               });
                             },
                             child: Text(_historia.historia.escolha2),
@@ -125,12 +99,13 @@ class _TelaInGameState extends State<TelaInGame> {
                           child: RaisedButton(
                             color: Colors.grey,
                             onPressed: () {
+                              lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
+                              print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
+                              _historia.proxHistoria(3);
                               setState(() {
-                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
-                               // lerOpcoes();
-                                _historia.proxHistoria(3);
+
                               });
-                              print(_historia.numeroHistoria);
+                              print(globais.Globais.numeroHistoria);
                             },
                             child: Text(_historia.historia.escolha3)
                           ),
@@ -142,6 +117,28 @@ class _TelaInGameState extends State<TelaInGame> {
             )
         )
     );
+  }
+
+
+  lerHistoria(String narracao, String escolha1, String escolha2, String escolha3) async{
+    if(globais.Globais.acessibilidadeOn == true){
+      await flutterTts.setLanguage("pt-BR");
+      await flutterTts.setPitch(1);
+      await flutterTts.setVolume(globais.Globais.volumeTTS);
+      if (_historia.eNarracao == true){
+        await flutterTts.speak(narracao+"...Escolha 1 :..." + escolha1);
+      }
+      else {
+        await flutterTts.speak(
+            narracao + "Escolha 1 :" + escolha1 + "Escolha 2 :" + escolha2 +
+                "Escolha 3 :" + escolha3);
+      }
+      if (globais.Globais.restartdemo == true) {
+        await flutterTts.stop();
+      }
+    }else if(globais.Globais.acessibilidadeOn == false) {
+
+    }
   }
 
   barraSuperior() {

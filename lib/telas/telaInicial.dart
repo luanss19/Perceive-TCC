@@ -1,9 +1,5 @@
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:perceive/dados/jogador.dart';
-import 'package:perceive/dados/salvamento.dart';
-import 'package:perceive/telas/criacaoJogador.dart';
 import 'package:perceive/telas/telaAcessibilidade.dart';
-import 'package:perceive/historia/cerebroHistoria.dart';
 import 'package:perceive/telas/telaInGame.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +13,6 @@ void main() {
   ));
 }
 
-cerebroHistoria _historia = new cerebroHistoria();
 
 class TelaInicial extends StatefulWidget {
   @override
@@ -26,17 +21,9 @@ class TelaInicial extends StatefulWidget {
 
 class _TelaInicialState extends State<TelaInicial> {
 
-  List<Jogador> jogadores = [];
   final FlutterTts flutterTts = FlutterTts();
 
-  Salvamento salvamento = Salvamento();
   Widget build(BuildContext context) {
-    speak(String text) async{
-      await flutterTts.setLanguage("pt-BR");
-      await flutterTts.setPitch(1);
-      await flutterTts.speak(text);
-
-    }
     return Scaffold(
         body: Center(
             child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
@@ -57,12 +44,15 @@ class _TelaInicialState extends State<TelaInicial> {
                       color: Colors.grey,
                       onPressed: () {
                         setState(() {
-                        _historia.numeroHistoria = 0;
-                        speak(_historia.historia.tituloHistoria);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (contex) => TelaInGame()));
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                            builder: (context) => TelaInGame(),
+                          ))
+                              .then((value) {
+                            globais.Globais.numeroHistoria = 0;
+
+                          });
+
                         });},
                       child: Text('Novo Jogo'),
                     ),
@@ -75,7 +65,6 @@ class _TelaInicialState extends State<TelaInicial> {
                     child: RaisedButton(
                       color: Colors.grey,
                       onPressed: () {
-                        print(_historia.numeroHistoria);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -111,7 +100,7 @@ class _TelaInicialState extends State<TelaInicial> {
                           context,
                           MaterialPageRoute(
                               builder: (contex) => TelaAcessibilidade()));
-                      print(globais.acessibilidadeOn);
+                      print(globais.Globais.acessibilidadeOn);
                       },
                       child: Text('Opções de acessibilidade'),
                       ),
@@ -142,17 +131,17 @@ class _TelaInicialState extends State<TelaInicial> {
             ])));
 
   }
-  _criacaoJogador({required Jogador jogador}) async {
-    final jogadorRetornado = await Navigator.push(context,
-        MaterialPageRoute(builder: (contxt) => criacaoJogador(jogador: jogador)));
-
-    if(jogadorRetornado != null) {
-      if(jogador != null) {
-        await salvamento.atualizarJogador(jogadorRetornado);
-      }
-      else {
-        await salvamento.salvar(jogadorRetornado);
-      }
-    }
-  }
+  // _criacaoJogador({required Jogador jogador}) async {
+  //   final jogadorRetornado = await Navigator.push(context,
+  //       MaterialPageRoute(builder: (contxt) => criacaoJogador(jogador: jogador)));
+  //
+  //   if(jogadorRetornado != null) {
+  //     if(jogador != null) {
+  //       await salvamento.atualizarJogador(jogadorRetornado);
+  //     }
+  //     else {
+  //       await salvamento.salvar(jogadorRetornado);
+  //     }
+  //   }
+  // }
 }
