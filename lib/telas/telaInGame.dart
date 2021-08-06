@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:perceive/dados/jogador.dart';
@@ -15,7 +16,6 @@ void main() {
   ));
 }
 
-
 cerebroHistoria _historia = new cerebroHistoria();
 
 class TelaInGame extends StatefulWidget {
@@ -28,6 +28,10 @@ class _TelaInGameState extends State<TelaInGame> {
   late Jogador jogador;
   final FlutterTts flutterTts = FlutterTts();
 
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) => lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3));
+  }
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -57,11 +61,10 @@ class _TelaInGameState extends State<TelaInGame> {
                           child: RaisedButton(
                             color: Colors.grey,
                             onPressed: () {
-                              print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
-                              lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
-                              _historia.proxHistoria(1);
                               setState(() {
-
+                                _historia.proxHistoria(1);
+                                print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
+                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
                               });
                             },
                             child:Text(_historia.historia.escolha1),
@@ -78,11 +81,10 @@ class _TelaInGameState extends State<TelaInGame> {
                           child: RaisedButton(
                             color: Colors.grey,
                             onPressed: () {
-                              print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
-                              lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
-                              _historia.proxHistoria(2);
                               setState((){
-
+                                _historia.proxHistoria(2);
+                                print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
+                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
                               });
                             },
                             child: Text(_historia.historia.escolha2),
@@ -99,11 +101,10 @@ class _TelaInGameState extends State<TelaInGame> {
                           child: RaisedButton(
                             color: Colors.grey,
                             onPressed: () {
-                              lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
-                              print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
-                              _historia.proxHistoria(3);
                               setState(() {
-
+                                _historia.proxHistoria(3);
+                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
+                                print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
                               });
                               print(globais.Globais.numeroHistoria);
                             },
@@ -129,9 +130,7 @@ class _TelaInGameState extends State<TelaInGame> {
         await flutterTts.speak(narracao+"...Escolha 1 :..." + escolha1);
       }
       else {
-        await flutterTts.speak(
-            narracao + "Escolha 1 :" + escolha1 + "Escolha 2 :" + escolha2 +
-                "Escolha 3 :" + escolha3);
+        await flutterTts.speak(narracao + "... Escolha 1 : ..." + escolha1 + "... Escolha 2 : ..." + escolha2 + "... Escolha 3 : ..." + escolha3);
       }
       if (globais.Globais.restartdemo == true) {
         await flutterTts.stop();

@@ -1,5 +1,5 @@
 import 'package:perceive/telas/telaInicial.dart';
-import 'package:perceive/dados/salvamento.dart';
+import 'package:perceive/dados/database.dart';
 import 'historia.dart';
 import 'package:get/get.dart';
 import 'package:perceive/dados/global.dart' as globais;
@@ -99,7 +99,6 @@ class cerebroHistoria {
     return false;
   }
 
-  Salvamento salvamento = Salvamento();
 
 
 

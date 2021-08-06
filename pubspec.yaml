@@ -34,7 +34,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   get:
-  sqflite:
+  sqflite: ^1.1.5
   path_provider: ^1.4.0
 
   path:

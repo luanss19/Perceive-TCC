@@ -1,4 +1,6 @@
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:perceive/dados/database.dart';
+import 'package:perceive/historia/cerebroHistoria.dart';
 import 'package:perceive/telas/telaAcessibilidade.dart';
 import 'package:perceive/telas/telaInGame.dart';
 import 'package:get/get.dart';
@@ -13,6 +15,7 @@ void main() {
   ));
 }
 
+cerebroHistoria _historia = new cerebroHistoria();
 
 class TelaInicial extends StatefulWidget {
   @override
@@ -21,6 +24,7 @@ class TelaInicial extends StatefulWidget {
 
 class _TelaInicialState extends State<TelaInicial> {
 
+  final dbHelper = DatabasePerceive.instance;
   final FlutterTts flutterTts = FlutterTts();
 
   Widget build(BuildContext context) {
@@ -44,12 +48,12 @@ class _TelaInicialState extends State<TelaInicial> {
                       color: Colors.grey,
                       onPressed: () {
                         setState(() {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(
+                          Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => TelaInGame(),
-                          ))
-                              .then((value) {
+                          ));
+                          setState(() {
                             globais.Globais.numeroHistoria = 0;
+                            globais.Globais.restartdemo = false;
 
                           });
 
@@ -89,6 +93,11 @@ class _TelaInicialState extends State<TelaInicial> {
                       child: Text('Carregar Salvo'),
                     ),
                   ),
+                ),
+                RaisedButton(
+                  child: Text('Inserir dados', style: TextStyle(fontSize: 20),),
+                  onPressed: () {_inserir();
+                  _consultar();},
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -144,4 +153,27 @@ class _TelaInicialState extends State<TelaInicial> {
   //     }
   //   }
   // }
+
+  void _inserir() async {
+    // linha para incluir
+    Map<String, dynamic> row = {
+      DatabasePerceive.colunaId: 1,
+      DatabasePerceive.colunaNome   : "Luan",
+      DatabasePerceive.colunaHistoria  : 1,
+      DatabasePerceive.colunaVida   : 1,
+      DatabasePerceive.colunaAtaque  : 1,
+      DatabasePerceive.colunaDefesa  : 1,
+      DatabasePerceive.colunaArma : 1,
+      DatabasePerceive.colunaArmadura  : 1,
+    };
+    final id = await dbHelper.insert(row);
+    print('linha inserida id: $id');
+  }
+  void _consultar() async {
+    final todasLinhas = await dbHelper.queryAllRows();
+    print('Consulta todas as linhas:');
+    todasLinhas.forEach((row) => print(row));
+  }
 }
+
+
