@@ -1,81 +1,47 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:perceive/dados/database.dart';
 import 'package:perceive/dados/jogador.dart';
+import 'package:perceive/dados/global.dart' as globais;
+import 'package:perceive/telas/telaInGame.dart';
+
+
 
 class criacaoJogador extends StatefulWidget {
-  Jogador jogador;
-  criacaoJogador({required this.jogador});
 
   @override
   _criacaoJogadorState createState() => _criacaoJogadorState();
 }
 
 class _criacaoJogadorState extends State<criacaoJogador> {
-  late Jogador _jogadorTemporario;
 
-  bool jogadorAlterado = false;
-
-  TextEditingController _idController = TextEditingController();
-  TextEditingController _historiaController = TextEditingController();
-  TextEditingController _nomeController = TextEditingController();
-  TextEditingController _vidaController = TextEditingController();
-  TextEditingController _ataqueController = TextEditingController();
-  TextEditingController _defesaController = TextEditingController();
-  TextEditingController _armaduraController = TextEditingController();
-  TextEditingController _armaController = TextEditingController();
-  TextEditingController _item1Controller = TextEditingController();
-  TextEditingController _item2Controller = TextEditingController();
-  TextEditingController _item3Controller = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  Jogador _jogador = Jogador();
+  List<Jogador> _jogadores = [];
+  late DatabasePerceive _dbHelper ;
+  final FlutterTts flutterTts = FlutterTts();
 
   @override
-  void initState() {
-    if (widget.jogador == null) {
-      _jogadorTemporario = Jogador();
-    } else {
-      _jogadorTemporario = Jogador.fromMap(widget.jogador.toMap());
 
-      _nomeController.text = _jogadorTemporario.nome;
-
-      _jogadorTemporario.historia = 0;
-      _jogadorTemporario.vida = 0;
-      _jogadorTemporario.ataque = 0;
-      _jogadorTemporario.defesa = 0;
-      _jogadorTemporario.arma = 0;
-      _jogadorTemporario.armadura = 0;
-      _jogadorTemporario.item1 = 0;
-      _jogadorTemporario.item2 = 0;
-      _jogadorTemporario.item3 = 0;
-
-      _historiaController.text = 0 as String;
-      _vidaController.text = 10 as String;
-      _ataqueController.text = 0 as String;
-      _defesaController.text = 0 as String;
-      _armaController.text = 0 as String;
-      _armaduraController.text = 0 as String;;
-      _item1Controller.text = 0 as String;
-      _item2Controller.text = 0 as String;
-      _item3Controller .text= 0 as String;
-    }
+  void initState(){
+    super.initState();
+    setState(() {
+      _dbHelper = DatabasePerceive.instance;
+    });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: alertaModificacoes,
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
-          title: Text("Criação de Perfil de Salvamento"),
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.save),
-          onPressed: () {
-            if (_jogadorTemporario.nome != null &&
-                _jogadorTemporario.nome.isNotEmpty) {
-              Navigator.pop(context, _jogadorTemporario);
-            }
-          },
+          title: Text("Criação de Perfil de Jogador"),
+          backgroundColor: Colors.grey,
         ),
         body: corpo(),
-      ),
+
     );
   }
 
@@ -84,53 +50,91 @@ class _criacaoJogadorState extends State<criacaoJogador> {
       padding: EdgeInsets.all(15),
       child: Column(
         children: <Widget>[
-          TextField(
-            controller: _nomeController,
-            keyboardType: TextInputType.text,
-            onChanged: (texto) {
-              jogadorAlterado = true;
-              setState(() {
-                _jogadorTemporario.nome = texto;
-              });
-            },
-            decoration: InputDecoration(
-              labelText: "Nome",
-            ),
+          Text("PERCEIVE",
+              textAlign: TextAlign.center, style: TextStyle(fontSize: 55)),
+          SizedBox(
+              height: 120.0
           ),
+          _form(),
         ],
       ),
     );
   }
+  _form() => Container(
+    color: Colors.white,
+    padding:  EdgeInsets.symmetric(vertical: 15,horizontal: 30),
+    child: Form(
+      key: _formKey,
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            onSaved: (val) => setState(() => _jogador.nome = val),
+            decoration: InputDecoration(
+                labelText: 'Nome do Jogador',
+                labelStyle: TextStyle(
+                  color: Colors.black,),
+                fillColor: Colors.grey,
+                focusedBorder:OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.grey
+                  ))
+            ),
+            validator: (val)=>(val!.length ==0 ? 'Preencha este campo':null),
+          ),
+          Container(
+            margin: EdgeInsets.all(10.0),
+            child: RaisedButton(
+              onPressed: (){_start();},
+              child: Text('Iniciar Aventura'),
 
-  Future<bool> alertaModificacoes() {
-    if (jogadorAlterado) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text("Descartar modificações?"),
-              content: Text("Deseja sair sem modificar o jogador?"),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text("Não"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                FlatButton(
-                  child: Text("Sim"),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            );
-          });
-      return Future.value(false);
+            ),
+          ),
+          RaisedButton(onPressed: (){
+            _consultar();
+          },
+          child:Text('Listar')),
+          RaisedButton(onPressed: (){
+            _deletar();
+          },
+              child:Text('Deletar'))
+        ],
+      ),
+    ),
+  );
+
+  void _deletar() async {
+      await _dbHelper.deletarJogador(5);
+
+  }
+
+  void _consultar() async {
+    final todasLinhas = await _dbHelper.listarJogadores();
+    print('Consulta todas as linhas:');
+    todasLinhas.forEach((row) => print(row));
+    print(globais.Globais.numPlayer);
+
+  }
+  _start() async {
+    var form = _formKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      _jogador.historia = 0;
+      _jogador.vida = 10;
+      _jogador.ataque = 0;
+      _jogador.defesa = 0;
+      _jogador.arma = 0;
+      _jogador.armadura = 0;
+      _jogador.item1 = 0;
+      _jogador.item2 = 0;
+      _jogador.item3 = 0;
+      await _dbHelper.salvarJogador(_jogador);
+      globais.Globais.numPlayer = _jogador.id!;
+      print(globais.Globais.numPlayer);
+      form.reset();
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (contex) => TelaInGame()));
     }
-    else {
-      return Future.value(true);
+
     }
   }
-}

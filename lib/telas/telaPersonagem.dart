@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:perceive/dados/jogador.dart';
 import 'package:perceive/telas/telaInGame.dart';
+import 'package:perceive/dados/global.dart' as globais;
 
 void main() {
   runApp(MaterialApp(
@@ -15,6 +17,11 @@ class TelaPersonagem extends StatefulWidget {
 }
 
 class _TelaPersonagemState extends State<TelaPersonagem> {
+
+  List<Jogador> _jogadores = [];
+
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       body:  Scaffold(
@@ -52,7 +59,7 @@ class _TelaPersonagemState extends State<TelaPersonagem> {
                     SizedBox(
                       height: 15,
                     ),
-                    Text("Pontos de vida: 5/10",style: TextStyle(fontSize: 25),),
+                    Text("Pontos de vida: ${_jogadores[globais.Globais.numPlayer].vida!}/10",style: TextStyle(fontSize: 25),),
                     SizedBox(
                       height: 10,
                     ),

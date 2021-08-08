@@ -1,91 +1,96 @@
 import 'package:perceive/dados/database.dart';
 class Jogador {
- // int id = 0;
- // String nome= "";
- // int historia= 0;
- // int vida= 0;
- // int ataque= 0;
- // int defesa= 0;
- // int arma= 0;
- // int armadura= 0;
- // int item1= 0;
- // int item2= 0;
- // int item3= 0;
- //
- late int id;
- late String nome;
- late int historia;
- late int vida;
- late int ataque;
- late int defesa;
- late int arma;
- late int armadura;
- late int item1;
- late int item2;
- late int item3;
-
- Jogador() {
-   int id = 0;
-   String nome = "";
-   int historia = 0;
-   int vida = 0;
-   int ataque = 0;
-   int defesa = 0;
-   int arma = 0;
-   int armadura = 0;
-   int item1 = 0;
-   int item2 = 0;
-   int item3 = 0;
- }
- // Jogador({
- //   required this.id,
- //   required this.nome,
- //   required this.historia,
- //   required this.ataque,
- //   required this.defesa,
- //   required this.arma,
- //   required this.armadura,
- //   required this.item1,
- //   required this.item2,
- //   required this.item3,
- // });
 
 
-  Jogador.fromMap(Map map) {
-    id =      map[id];
-    nome =    map[nome];
-    historia = map[historia];
-    vida =    map[vida];
-    ataque =  map[ataque];
-    defesa =  map[defesa];
-    arma =    map[arma];
-    armadura =map[armadura];
-    item1 =   map[item1];
-    item2 =   map[item2];
-    item3 =   map[item3];
+  static const String tabelaJogador = "jogadores";
+
+  static const String colunaId = "id";
+  static const String colunaHistoria = "historia";
+  static const String colunaNome = "nome";
+  static const String colunaVida = "vida";
+  static const String colunaAtaque = "ataque";
+  static const String colunaDefesa = "defesa";
+  static const String colunaArma = "arma";
+  static const String colunaArmadura = "armadura";
+  static const String colunaItem1 = "item1";
+  static const String colunaItem2 = "item2";
+  static const String colunaItem3 = "item3";
+
+  Jogador({
+    this.id,
+    this.nome,
+    this.historia,
+    this.ataque,
+    this.defesa,
+    this.arma,
+    this.armadura,
+    this.item1,
+    this.item2,
+    this.item3,
+  });
+
+  int? id;
+  String? nome;
+  int? historia;
+  int? vida;
+  int? ataque;
+  int? defesa;
+  int? arma;
+  int? armadura;
+  int? item1;
+  int? item2;
+  int? item3;
+
+
+ // Jogador() {
+ //   int id = 0;
+ //   String nome = "";
+ //   int historia = 0;
+ //   int vida = 0;
+ //   int ataque = 0;
+ //   int defesa = 0;
+ //   int arma = 0;
+ //   int armadura = 0;
+ //   int item1 = 0;
+ //   int item2 = 0;
+ //   int item3 = 0;
+ // }
+
+
+
+  Jogador.fromMap(Map <String, dynamic> map) {
+    id =      map[colunaId];
+    nome =    map[colunaNome];
+    historia = map[colunaHistoria];
+    vida =    map[colunaVida];
+    ataque =  map[colunaAtaque];
+    defesa =  map[colunaDefesa];
+    arma =    map[colunaArma];
+    armadura =map[colunaArmadura];
+    item1 =   map[colunaItem1];
+    item2 =   map[colunaItem2];
+    item3 =   map[colunaItem3];
   }
 
-  toMap() {
-    Map<String, dynamic> map = {
-      "id": id,
-      "nome": nome,
-      "historia": historia,
-      "vida": vida,
-      "ataque":ataque,
-      "defesa":defesa,
-      "arma":arma,
-      "armadura":armadura,
-      "item1":item1,
-      "item2":item2,
-      "item3":item3
+  Map<String, dynamic> toMap() {
+     var map = <String, dynamic>{
+       colunaId: id,
+      colunaNome: nome,
+      colunaHistoria: historia,
+      colunaVida: vida,
+      colunaAtaque:ataque,
+      colunaDefesa:defesa,
+      colunaArma:arma,
+      colunaArmadura:armadura,
+      colunaItem1:item1,
+      colunaItem2:item2,
+      colunaItem3:item3
     };
     if (id != null) {
-      map["id"] = id;
+      map[colunaId] = id;
     }
     return map;
   }
-
-
 
 
   @override

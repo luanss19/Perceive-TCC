@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:perceive/dados/database.dart';
 import 'package:perceive/dados/jogador.dart';
 import 'package:perceive/historia/cerebroHistoria.dart';
 import 'package:perceive/telas/telaInicial.dart';
@@ -26,12 +27,30 @@ class TelaInGame extends StatefulWidget {
 
 class _TelaInGameState extends State<TelaInGame> {
   late Jogador jogador;
+  late DatabasePerceive _dbHelper ;
+  List<Jogador> _jogadores = [];
+
   final FlutterTts flutterTts = FlutterTts();
 
   void initState() {
     super.initState();
+    setState(() {
+      _dbHelper = DatabasePerceive.instance;
+    });
     WidgetsBinding.instance!.addPostFrameCallback((_) => lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3));
+    listarJogadores();
   }
+
+  void listarJogadores() {
+    _dbHelper.listarJogadores().then((lista){
+      setState(() {
+        _jogadores = lista;
+      });
+    });
+  }
+
+
+
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -174,7 +193,7 @@ class _TelaInGameState extends State<TelaInGame> {
                         color: Colors.red,
                       ),
                       height: 10,
-                      width: 50,
+                      width: _jogadores[globais.Globais.numPlayer].vida!*10,
                     ),
                   ],
                 ),

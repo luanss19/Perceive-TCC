@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 void main() {
   runApp(GetMaterialApp(
     title: 'Perceive',
+    theme: ThemeData(primaryColor: Colors.grey,visualDensity: VisualDensity.adaptivePlatformDensity),
     home: Home(),
   ));
 }

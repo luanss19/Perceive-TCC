@@ -1,12 +1,16 @@
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:perceive/dados/database.dart';
+import 'package:perceive/dados/jogador.dart';
 import 'package:perceive/historia/cerebroHistoria.dart';
 import 'package:perceive/telas/telaAcessibilidade.dart';
+import 'package:perceive/telas/telaCarregarJogo.dart';
 import 'package:perceive/telas/telaInGame.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:perceive/dados/global.dart' as globais;
+
+import 'criacaoJogador.dart';
 
 void main() {
   runApp(GetMaterialApp(
@@ -24,8 +28,18 @@ class TelaInicial extends StatefulWidget {
 
 class _TelaInicialState extends State<TelaInicial> {
 
-  final dbHelper = DatabasePerceive.instance;
+  Jogador _jogador = Jogador();
+  late DatabasePerceive _dbHelper ;
   final FlutterTts flutterTts = FlutterTts();
+
+  @override
+
+  void initState(){
+    super.initState();
+    setState(() {
+      _dbHelper = DatabasePerceive.instance;
+    });
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,11 +63,11 @@ class _TelaInicialState extends State<TelaInicial> {
                       onPressed: () {
                         setState(() {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => TelaInGame(),
+                            builder: (context) => criacaoJogador(),
                           ));
                           setState(() {
-                            globais.Globais.numeroHistoria = 0;
-                            globais.Globais.restartdemo = false;
+                            //globais.Globais.numeroHistoria = 0;
+                            //globais.Globais.restartdemo = false;
 
                           });
 
@@ -88,17 +102,17 @@ class _TelaInicialState extends State<TelaInicial> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (contex) => TelaInGame()));
+                              builder: (contex) => telaCarregarJogo()));
                       },
                       child: Text('Carregar Salvo'),
                     ),
                   ),
                 ),
-                RaisedButton(
-                  child: Text('Inserir dados', style: TextStyle(fontSize: 20),),
-                  onPressed: () {_inserir();
-                  _consultar();},
-                ),
+                // RaisedButton(
+                //   child: Text('Inserir dados', style: TextStyle(fontSize: 20),),
+                //   onPressed: () {_inserir();
+                //   _consultar();},
+                // ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonTheme(
@@ -154,26 +168,26 @@ class _TelaInicialState extends State<TelaInicial> {
   //   }
   // }
 
-  void _inserir() async {
-    // linha para incluir
-    Map<String, dynamic> row = {
-      DatabasePerceive.colunaId: 1,
-      DatabasePerceive.colunaNome   : "Luan",
-      DatabasePerceive.colunaHistoria  : 1,
-      DatabasePerceive.colunaVida   : 1,
-      DatabasePerceive.colunaAtaque  : 1,
-      DatabasePerceive.colunaDefesa  : 1,
-      DatabasePerceive.colunaArma : 1,
-      DatabasePerceive.colunaArmadura  : 1,
-    };
-    final id = await dbHelper.insert(row);
-    print('linha inserida id: $id');
-  }
-  void _consultar() async {
-    final todasLinhas = await dbHelper.queryAllRows();
-    print('Consulta todas as linhas:');
-    todasLinhas.forEach((row) => print(row));
-  }
+  // void _inserir() async {
+  //   // linha para incluir
+  //   Map<String, dynamic> row = {
+  //     DatabasePerceive.colunaId: 1,
+  //     DatabasePerceive.colunaNome   : "Luan",
+  //     DatabasePerceive.colunaHistoria  : 1,
+  //     DatabasePerceive.colunaVida   : 1,
+  //     DatabasePerceive.colunaAtaque  : 1,
+  //     DatabasePerceive.colunaDefesa  : 1,
+  //     DatabasePerceive.colunaArma : 1,
+  //     DatabasePerceive.colunaArmadura  : 1,
+  //   };
+  //   final id = await dbHelper.insert(row);
+  //   print('linha inserida id: $id');
+  // }
+  // void _consultar() async {
+  //   final todasLinhas = await dbHelper.queryAllRows();
+  //   print('Consulta todas as linhas:');
+  //   todasLinhas.forEach((row) => print(row));
+  // }
 }
 
 
