@@ -32,10 +32,10 @@ class _TelaPersonagemState extends State<TelaPersonagem> {
               onTap: (){
                 Navigator.pop(context);
                 Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (contex) => TelaInGame()));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (contex) => TelaInGame()));
               },
               child: Center(
                   child: Container(

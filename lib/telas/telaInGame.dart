@@ -10,25 +10,23 @@ import 'package:perceive/telas/telaPersonagem.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:perceive/dados/global.dart' as globais;
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Perceive',
-    home: TelaInGame(),
-  ));
-}
-
 cerebroHistoria _historia = new cerebroHistoria();
 
 class TelaInGame extends StatefulWidget {
+  final int jogadorID;
 
+  const TelaInGame({
+    Key? key,
+    required this.jogadorID,
+  }) : super(key: key);
   @override
   _TelaInGameState createState() => _TelaInGameState();
 }
 
 class _TelaInGameState extends State<TelaInGame> {
-  late Jogador jogador;
+
+  late Jogador jogador ;
   late DatabasePerceive _dbHelper ;
-  List<Jogador> _jogadores = [];
 
   final FlutterTts flutterTts = FlutterTts();
 
@@ -36,23 +34,20 @@ class _TelaInGameState extends State<TelaInGame> {
     super.initState();
     setState(() {
       _dbHelper = DatabasePerceive.instance;
+      listarJogadores();
+
     });
     WidgetsBinding.instance!.addPostFrameCallback((_) => lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3));
-    listarJogadores();
   }
 
-  void listarJogadores() {
-    _dbHelper.listarJogadores().then((lista){
-      setState(() {
-        _jogadores = lista;
-      });
-    });
-  }
+  Future listarJogadores() async {
+    this.jogador = await _dbHelper.carregar(widget.jogadorID);
+    }
 
 
 
+@override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: barraSuperior(),
         bottomNavigationBar: barraInferior(),
@@ -193,7 +188,7 @@ class _TelaInGameState extends State<TelaInGame> {
                         color: Colors.red,
                       ),
                       height: 10,
-                      width: _jogadores[globais.Globais.numPlayer].vida!*10,
+                      width: jogador.vida!*10,
                     ),
                   ],
                 ),
@@ -209,14 +204,14 @@ class _TelaInGameState extends State<TelaInGame> {
                   style: TextStyle(color: Colors.black),
                 ),
                 Text(
-                  "\$175",
+                  "${jogador.dinheiro}",
                   style: TextStyle(color: Colors.black, fontSize: 15),
                 ),
               ],
             ),
-            SizedBox(
-              width: 150
-            ),
+            // SizedBox(
+            //   width: 150
+            // ),
             InkWell(
                 onTap: (){
                   Navigator.pop(context);

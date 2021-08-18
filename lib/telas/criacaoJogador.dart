@@ -18,6 +18,7 @@ class _criacaoJogadorState extends State<criacaoJogador> {
 
   final _formKey = GlobalKey<FormState>();
   Jogador _jogador = Jogador();
+  Jogador _jogadorTemp = Jogador();
   List<Jogador> _jogadores = [];
   late DatabasePerceive _dbHelper ;
   final FlutterTts flutterTts = FlutterTts();
@@ -102,7 +103,7 @@ class _criacaoJogadorState extends State<criacaoJogador> {
   );
 
   void _deletar() async {
-      await _dbHelper.deletarJogador(5);
+      await _dbHelper.droptable();
 
   }
 
@@ -116,24 +117,29 @@ class _criacaoJogadorState extends State<criacaoJogador> {
   _start() async {
     var form = _formKey.currentState;
     if (form!.validate()) {
-      form.save();
+
       _jogador.historia = 0;
       _jogador.vida = 10;
       _jogador.ataque = 0;
       _jogador.defesa = 0;
+      _jogador.dinheiro = 0;
       _jogador.arma = 0;
       _jogador.armadura = 0;
       _jogador.item1 = 0;
       _jogador.item2 = 0;
       _jogador.item3 = 0;
-      await _dbHelper.salvarJogador(_jogador);
+      form.save();
+      var id = await _dbHelper.salvarJogador(_jogador);
+      print (id);
       globais.Globais.numPlayer = _jogador.id!;
       print(globais.Globais.numPlayer);
+      print(_jogador.id);
       form.reset();
+      Navigator.pop(context);
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (contex) => TelaInGame()));
+              builder: (context) => TelaInGame(jogadorID: _jogador.id!,)));
     }
 
     }

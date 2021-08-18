@@ -46,10 +46,10 @@ class _telaCarregarJogoState extends State<telaCarregarJogo> {
         ),
         body: ListView.builder(
           padding: EdgeInsets.all(8),
+          itemCount: _jogadores.length,
           itemBuilder: (context,index){
             return _cardJogador(context,index);
           },
-          itemCount: _jogadores.length,
         )
     );
   }
@@ -96,8 +96,13 @@ class _telaCarregarJogoState extends State<telaCarregarJogo> {
 
   Widget _cardJogador(BuildContext contex, int index) {
     return GestureDetector(
-      onTap: (){
-        _carregarGame(jogador: _jogador);
+      onTap: () async{
+        globais.Globais.numeroHistoria = _jogadores[index].historia!;
+        globais.Globais.numPlayer = _jogadores[index].id!;
+        globais.Globais.restartdemo = false;
+        await Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => TelaInGame(jogadorID: _jogadores[index].id!)));
       },
       child: Card(
         child: Padding(
@@ -129,15 +134,6 @@ class _telaCarregarJogoState extends State<telaCarregarJogo> {
     );
   }
 
-  void _carregarGame({required Jogador jogador}) {
-    globais.Globais.numeroHistoria = jogador.historia!;
-    globais.Globais.numPlayer = jogador.id!;
-    globais.Globais.restartdemo = false;
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (contex) => TelaInGame()));
-  }
 
 
 
