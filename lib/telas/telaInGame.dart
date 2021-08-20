@@ -25,7 +25,7 @@ class TelaInGame extends StatefulWidget {
 
 class _TelaInGameState extends State<TelaInGame> {
 
-  late Jogador jogador ;
+  late Jogador _jogador ;
   late DatabasePerceive _dbHelper ;
 
   final FlutterTts flutterTts = FlutterTts();
@@ -34,14 +34,16 @@ class _TelaInGameState extends State<TelaInGame> {
     super.initState();
     setState(() {
       _dbHelper = DatabasePerceive.instance;
-      listarJogadores();
+      listarJogadores().whenComplete((){
+        setState(() {});
+      });
 
     });
     WidgetsBinding.instance!.addPostFrameCallback((_) => lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3));
   }
 
   Future listarJogadores() async {
-    this.jogador = await _dbHelper.carregar(widget.jogadorID);
+    this._jogador = await _dbHelper.carregar(widget.jogadorID);
     }
 
 
@@ -188,7 +190,7 @@ class _TelaInGameState extends State<TelaInGame> {
                         color: Colors.red,
                       ),
                       height: 10,
-                      width: jogador.vida!*10,
+                      width: _jogador.vida!*10,
                     ),
                   ],
                 ),
@@ -204,14 +206,14 @@ class _TelaInGameState extends State<TelaInGame> {
                   style: TextStyle(color: Colors.black),
                 ),
                 Text(
-                  "${jogador.dinheiro}",
+                  "${_jogador.dinheiro}",
                   style: TextStyle(color: Colors.black, fontSize: 15),
                 ),
               ],
             ),
-            // SizedBox(
-            //   width: 150
-            // ),
+             SizedBox(
+               width: 150
+             ),
             InkWell(
                 onTap: (){
                   Navigator.pop(context);
