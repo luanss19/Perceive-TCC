@@ -38,7 +38,8 @@ class DatabasePerceive {
        ${Jogador.colunaNome } TEXT, 
        ${Jogador.colunaVida} INTEGER, 
        ${Jogador.colunaAtaque } INTEGER, 
-       ${Jogador.colunaDefesa } INTEGER, 
+       ${Jogador.colunaDefesa } INTEGER,
+       ${Jogador.colunaDinheiro } INTEGER,
        ${Jogador.colunaArma } INTEGER, 
        ${Jogador.colunaArmadura} INTEGER, 
        ${Jogador.colunaItem1} INTEGER, 
@@ -59,32 +60,59 @@ class DatabasePerceive {
   :jogadores.map((x) => Jogador.fromMap(x)).toList();
  }
 
+ Future<void> droptable() async {
+
+   Database db = await instance.database;
+
+   await db.execute("DROP TABLE IF EXISTS ${Jogador.tabelaJogador}");
+
+   //and finally here we recreate our beloved "tableName" again which needs
+   //some columns initialization
+   await db.execute('''
+   CREATE TABLE ${Jogador.tabelaJogador} (
+       ${Jogador.colunaId} INTEGER PRIMARY KEY AUTOINCREMENT, 
+       ${Jogador.colunaHistoria} INTEGER, 
+       ${Jogador.colunaNome } TEXT, 
+       ${Jogador.colunaVida} INTEGER, 
+       ${Jogador.colunaAtaque } INTEGER, 
+       ${Jogador.colunaDefesa } INTEGER, 
+       ${Jogador.colunaDinheiro } INTEGER, 
+       ${Jogador.colunaArma } INTEGER, 
+       ${Jogador.colunaArmadura} INTEGER, 
+       ${Jogador.colunaItem1} INTEGER, 
+       ${Jogador.colunaItem2} INTEGER, 
+       ${Jogador.colunaItem3} INTEGER)''');
+
+ }
 
 
- // Future<Jogador> carregar(int id) async {
- //   Database bancoJogador = await instance.database;
- //   List<Map> retorno = await bancoJogador.query(
- //       Jogador.tabelaJogador,
- //       columns: [Jogador.colunaId,
- //         Jogador.colunaNome,
- //         Jogador.colunaVida,
- //         Jogador.colunaHistoria,
- //         Jogador.colunaAtaque,
- //         Jogador.colunaDefesa,
- //         Jogador.colunaArma,
- //         Jogador.colunaArmadura,
- //         Jogador.colunaItem1,
- //         Jogador.colunaItem2,
- //         Jogador.colunaItem3],
- //       where: "$Jogador.colunaId = ?",
- //       whereArgs: [id]);
- //   if(retorno.length > 0) {
- //     return Jogador.fromMap(retorno.first);
- //   }
- //   else {
- //     return null;
- //   }
- // }
+
+ Future<Jogador> carregar(int id) async {
+   Database bancoJogador = await instance.database;
+   final retorno = await bancoJogador.query(
+       Jogador.tabelaJogador,
+       columns: [Jogador.colunaId,
+         Jogador.colunaNome,
+         Jogador.colunaVida,
+         Jogador.colunaHistoria,
+         Jogador.colunaAtaque,
+         Jogador.colunaDefesa,
+         Jogador.colunaDinheiro,
+         Jogador.colunaArma,
+         Jogador.colunaArmadura,
+         Jogador.colunaItem1,
+         Jogador.colunaItem2,
+         Jogador.colunaItem3],
+       where: "${Jogador.colunaId} = ?",
+       whereArgs: [id]);
+   if(retorno.length > 0) {
+     print(Jogador.fromMap(retorno.first));
+     return Jogador.fromMap(retorno.first);
+   }
+   else {
+     throw Exception("erro");
+   }
+ }
 
   Future<int> deletarJogador(int id) async {
     Database bancoJogador = await instance.database;

@@ -10,6 +10,7 @@ class Jogador {
   static const String colunaVida = "vida";
   static const String colunaAtaque = "ataque";
   static const String colunaDefesa = "defesa";
+  static const String colunaDinheiro = "dinheiro";
   static const String colunaArma = "arma";
   static const String colunaArmadura = "armadura";
   static const String colunaItem1 = "item1";
@@ -22,6 +23,7 @@ class Jogador {
     this.historia,
     this.ataque,
     this.defesa,
+    this.dinheiro,
     this.arma,
     this.armadura,
     this.item1,
@@ -35,6 +37,7 @@ class Jogador {
   int? vida;
   int? ataque;
   int? defesa;
+  int? dinheiro;
   int? arma;
   int? armadura;
   int? item1;
@@ -65,6 +68,7 @@ class Jogador {
     vida =    map[colunaVida];
     ataque =  map[colunaAtaque];
     defesa =  map[colunaDefesa];
+    dinheiro =  map[colunaDinheiro];
     arma =    map[colunaArma];
     armadura =map[colunaArmadura];
     item1 =   map[colunaItem1];
@@ -80,6 +84,7 @@ class Jogador {
       colunaVida: vida,
       colunaAtaque:ataque,
       colunaDefesa:defesa,
+      colunaDinheiro:dinheiro,
       colunaArma:arma,
       colunaArmadura:armadura,
       colunaItem1:item1,
@@ -101,6 +106,7 @@ class Jogador {
         "historia: $historia | "
         "ataque: $ataque | "
         "defesa: $defesa | "
+        "dinheiro: $dinheiro | "
         "arma: $arma | "
         "armadura: $armadura | "
         "item1: $item1 | "
