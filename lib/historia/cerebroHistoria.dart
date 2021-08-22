@@ -1,3 +1,4 @@
+import 'package:perceive/dados/jogador.dart';
 import 'package:perceive/telas/telaInicial.dart';
 import 'package:perceive/dados/database.dart';
 import 'historia.dart';
@@ -104,8 +105,8 @@ class cerebroHistoria {
 
   Historia get historia => _dadosHistoria[globais.Globais.numeroHistoria];
 
-  void proxHistoria(int numeroEscolha) {
-    switch (globais.Globais.numeroHistoria) {
+  void proxHistoria(int numeroEscolha,Jogador jogador) {
+    switch (jogador.historia) {
         case 0:
           globais.Globais.restartdemo = false;
           globais.Globais.numeroHistoria = 1;

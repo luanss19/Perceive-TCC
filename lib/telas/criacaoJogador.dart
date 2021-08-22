@@ -130,16 +130,18 @@ class _criacaoJogadorState extends State<criacaoJogador> {
       _jogador.item3 = 0;
       form.save();
       var id = await _dbHelper.salvarJogador(_jogador);
-      print (id);
-      globais.Globais.numPlayer = _jogador.id!;
+      _jogadorTemp = await _dbHelper.ultimoRegistro();
+      print (_jogadorTemp.id);
+      globais.Globais.numPlayer = _jogadorTemp.id!;
+      globais.Globais.numeroHistoria=0;
+      globais.Globais.ultimoPlayer = _jogadorTemp.id!;
       print(globais.Globais.numPlayer);
       print(_jogador.id);
       form.reset();
-      Navigator.pop(context);
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => TelaInGame(jogadorID: _jogador.id!,)));
+              builder: (context) => TelaInGame(jogadorID: _jogadorTemp.id!,)));
     }
 
     }

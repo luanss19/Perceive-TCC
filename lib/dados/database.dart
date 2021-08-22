@@ -66,8 +66,6 @@ class DatabasePerceive {
 
    await db.execute("DROP TABLE IF EXISTS ${Jogador.tabelaJogador}");
 
-   //and finally here we recreate our beloved "tableName" again which needs
-   //some columns initialization
    await db.execute('''
    CREATE TABLE ${Jogador.tabelaJogador} (
        ${Jogador.colunaId} INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -122,19 +120,31 @@ class DatabasePerceive {
     );
   }
 
- // Future<List> consultarJogadores() async {
- //   Database bancoJogador = await instance.database;
- //   List<Map> retorno = await bancoJogador.rawQuery(
- //       "SELECT * FROM $Jogador.tabelaJogador");
- //   List<Jogador> jogadores = [];
- //   for(Map jogador in retorno) {
- //     jogadores.add(Jogador.fromMap(jogador));
- //   }
- //   return jogadores;
- // }
-//
-//
-//
+  Future updateHistoria(int id,int numhistoria) async {
+    Database bancoJogador = await instance.database;
+    await bancoJogador.rawUpdate('''
+    UPDATE ${Jogador.tabelaJogador} 
+    SET historia = ?
+    WHERE id = ? ''',
+        [numhistoria,id]);
+    }
+
+
+  Future<Jogador> ultimoRegistro() async {
+    Database bancoJogador = await instance.database;
+    final retorno = await bancoJogador.rawQuery('''
+    SELECT * FROM ${Jogador.tabelaJogador} 
+    ORDER BY id DESC
+    LIMIT 1''');
+    if(retorno.length > 0) {
+      print(Jogador.fromMap(retorno.first));
+      return Jogador.fromMap(retorno.first);
+    }
+    else {
+      throw Exception("erro");
+    }
+  }
+
   Future<int> atualizarJogador(Jogador jogador) async {
     Database bancoJogador = await instance.database;
     return await bancoJogador.update(Jogador.tabelaJogador, jogador.toMap(),

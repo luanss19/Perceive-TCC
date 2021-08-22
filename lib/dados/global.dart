@@ -4,5 +4,6 @@ class Globais {
   static bool restartdemo = false;
   static int numeroHistoria = 0;
   static int numPlayer = 0;
+  static int ultimoPlayer = 0;
 
 }

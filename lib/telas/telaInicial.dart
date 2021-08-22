@@ -65,12 +65,6 @@ class _TelaInicialState extends State<TelaInicial> {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => criacaoJogador(),
                           ));
-                          setState(() {
-                            //globais.Globais.numeroHistoria = 0;
-                            //globais.Globais.restartdemo = false;
-
-                          });
-
                         });},
                       child: Text('Novo Jogo'),
                     ),
@@ -86,7 +80,7 @@ class _TelaInicialState extends State<TelaInicial> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TelaInGame(jogadorID: 1,)));
+                              builder: (context) => TelaInGame(jogadorID: globais.Globais.ultimoPlayer)));
                       },
                       child: Text('Continuar Jogo'),
                     ),
@@ -154,40 +148,7 @@ class _TelaInicialState extends State<TelaInicial> {
             ])));
 
   }
-  // _criacaoJogador({required Jogador jogador}) async {
-  //   final jogadorRetornado = await Navigator.push(context,
-  //       MaterialPageRoute(builder: (contxt) => criacaoJogador(jogador: jogador)));
-  //
-  //   if(jogadorRetornado != null) {
-  //     if(jogador != null) {
-  //       await salvamento.atualizarJogador(jogadorRetornado);
-  //     }
-  //     else {
-  //       await salvamento.salvar(jogadorRetornado);
-  //     }
-  //   }
-  // }
 
-  // void _inserir() async {
-  //   // linha para incluir
-  //   Map<String, dynamic> row = {
-  //     DatabasePerceive.colunaId: 1,
-  //     DatabasePerceive.colunaNome   : "Luan",
-  //     DatabasePerceive.colunaHistoria  : 1,
-  //     DatabasePerceive.colunaVida   : 1,
-  //     DatabasePerceive.colunaAtaque  : 1,
-  //     DatabasePerceive.colunaDefesa  : 1,
-  //     DatabasePerceive.colunaArma : 1,
-  //     DatabasePerceive.colunaArmadura  : 1,
-  //   };
-  //   final id = await dbHelper.insert(row);
-  //   print('linha inserida id: $id');
-  // }
-  // void _consultar() async {
-  //   final todasLinhas = await dbHelper.queryAllRows();
-  //   print('Consulta todas as linhas:');
-  //   todasLinhas.forEach((row) => print(row));
-  // }
 }
 
 

@@ -34,7 +34,7 @@ class _TelaInGameState extends State<TelaInGame> {
     super.initState();
     setState(() {
       _dbHelper = DatabasePerceive.instance;
-      listarJogadores().whenComplete((){
+      refreshJogadores().whenComplete((){
         setState(() {});
       });
 
@@ -42,9 +42,10 @@ class _TelaInGameState extends State<TelaInGame> {
     WidgetsBinding.instance!.addPostFrameCallback((_) => lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3));
   }
 
-  Future listarJogadores() async {
+  Future refreshJogadores() async {
     this._jogador = await _dbHelper.carregar(widget.jogadorID);
-    }
+    globais.Globais.ultimoPlayer = _jogador.id!;
+  }
 
 
 
@@ -78,7 +79,8 @@ class _TelaInGameState extends State<TelaInGame> {
                             color: Colors.grey,
                             onPressed: () {
                               setState(() {
-                                _historia.proxHistoria(1);
+                                _historia.proxHistoria(1,_jogador);
+                                updateHistoria();
                                 print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
                                 lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
                               });
@@ -98,7 +100,8 @@ class _TelaInGameState extends State<TelaInGame> {
                             color: Colors.grey,
                             onPressed: () {
                               setState((){
-                                _historia.proxHistoria(2);
+                                _historia.proxHistoria(2,_jogador);
+                                updateHistoria();
                                 print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
                                 lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
                               });
@@ -118,7 +121,8 @@ class _TelaInGameState extends State<TelaInGame> {
                             color: Colors.grey,
                             onPressed: () {
                               setState(() {
-                                _historia.proxHistoria(3);
+                                _historia.proxHistoria(3,_jogador);
+                                updateHistoria();
                                 lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
                                 print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
                               });
@@ -265,4 +269,15 @@ class _TelaInGameState extends State<TelaInGame> {
       ),
     );
   }
+ Future updateHistoria() async{
+  await _dbHelper.updateHistoria(_jogador.id!, globais.Globais.numeroHistoria);
+  final todasLinhas = await _dbHelper.listarJogadores();
+  await refreshJogadores();
+  print('Consulta todas as linhas:');
+  todasLinhas.forEach((row) => print(row));
+  print(_jogador.id);
+  print(_jogador.historia);
+  globais.Globais.ultimoPlayer = _jogador.id!;
+ }
 }
+
