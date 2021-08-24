@@ -21,6 +21,7 @@ class _telaCarregarJogoState extends State<telaCarregarJogo> {
 
 @override
   void initState(){
+  flutterTts.stop();
     super.initState();
     setState(() {
       _dbHelper = DatabasePerceive.instance;
@@ -94,7 +95,7 @@ class _telaCarregarJogoState extends State<telaCarregarJogo> {
 
 
 
-  Widget _cardJogador(BuildContext contex, int index) {
+  Widget _cardJogador(BuildContext context, int index) {
     return GestureDetector(
       onTap: () async{
         globais.Globais.numeroHistoria = _jogadores[index].historia!;

@@ -35,7 +35,7 @@ class _TelaPersonagemState extends State<TelaPersonagem> {
                 // Navigator.push(
                 //     context,
                 //     MaterialPageRoute(
-                //         builder: (contex) => TelaInGame()));
+                //         builder: (context) => TelaInGame()));
               },
               child: Center(
                   child: Container(

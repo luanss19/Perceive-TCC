@@ -107,7 +107,7 @@ class _LoginState extends State<Login> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (contex) => TelaRecuperacao()));
+                                    builder: (context) => TelaRecuperacao()));
                           },
                           child: SizedBox(
                             height: 30,
@@ -136,7 +136,7 @@ class _LoginState extends State<Login> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (contex) => TelaInicial()));
+                                            builder: (context) => TelaInicial()));
                                 //   } else {
                                 //     _alertImagem();
                                 //   }

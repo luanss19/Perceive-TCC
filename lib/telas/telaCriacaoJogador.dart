@@ -26,6 +26,7 @@ class _criacaoJogadorState extends State<criacaoJogador> {
   @override
 
   void initState(){
+    flutterTts.stop();
     super.initState();
     setState(() {
       _dbHelper = DatabasePerceive.instance;

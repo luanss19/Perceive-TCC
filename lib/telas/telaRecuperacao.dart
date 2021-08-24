@@ -90,7 +90,7 @@ class _TelaRecuperacaoState extends State<TelaRecuperacao> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (contex) => telaCadastro()));
+                                        builder: (context) => telaCadastro()));
                               } else {
                                 _alertImagem();
                               }

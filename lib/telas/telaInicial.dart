@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:perceive/dados/global.dart' as globais;
 
-import 'criacaoJogador.dart';
+import 'telaCriacaoJogador.dart';
 
 void main() {
   runApp(GetMaterialApp(
@@ -27,33 +27,39 @@ class TelaInicial extends StatefulWidget {
 }
 
 class _TelaInicialState extends State<TelaInicial> {
-
   Jogador _jogador = Jogador();
-  late DatabasePerceive _dbHelper ;
+  late DatabasePerceive _dbHelper;
   final FlutterTts flutterTts = FlutterTts();
 
   @override
-
-  void initState(){
-    super.initState();
+  void initState() {
+    flutterTts.stop();
+    if (globais.Globais.acessibilidadeOn == true) {
+      flutterTts.speak(
+          "A tela inicial contém quatro botões.  Primeiro: Novo Jogo.  Segundo: Continuar Jogo.  Terceiro: Carregar Salvo.  Quarto: Opções de Acessibilidade");
+    }
     setState(() {
       _dbHelper = DatabasePerceive.instance;
     });
+    super.initState();
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              SizedBox(
-                height: 50.0,
-              ),
-              Text("PERCEIVE",
-                  textAlign: TextAlign.center, style: TextStyle(fontSize: 55)),
-              SizedBox(
-                height: 120.0
-              ),
-              Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+    return new WillPopScope(
+        onWillPop: () async => false,
+        child: new Scaffold(
+            body: Center(
+                child:
+                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          SizedBox(
+            height: 50.0,
+          ),
+          Text("PERCEIVE",
+              textAlign: TextAlign.center, style: TextStyle(fontSize: 55)),
+          SizedBox(height: 120.0),
+          Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonTheme(
@@ -65,7 +71,8 @@ class _TelaInicialState extends State<TelaInicial> {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => criacaoJogador(),
                           ));
-                        });},
+                        });
+                      },
                       child: Text('Novo Jogo'),
                     ),
                   ),
@@ -77,10 +84,20 @@ class _TelaInicialState extends State<TelaInicial> {
                     child: RaisedButton(
                       color: Colors.grey,
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TelaInGame(jogadorID: globais.Globais.ultimoPlayer)));
+                        if(globais.Globais.ultimoPlayer != 0){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TelaInGame(
+                                      jogadorID: globais.Globais.ultimoPlayer)));
+                        }else{
+                          if(globais.Globais.acessibilidadeOn == true){
+                            flutterTts.speak("Nenhum jogo foi carregado nessa sessão, inicie um jogo salvo no menu Carregar Salvo");
+                          }
+                          final snackBar = SnackBar(content: Text('Nenhum jogo foi carregado nessa sessão, inicie um jogo salvo no menu Carregar Salvo'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+
                       },
                       child: Text('Continuar Jogo'),
                     ),
@@ -94,9 +111,9 @@ class _TelaInicialState extends State<TelaInicial> {
                       color: Colors.grey,
                       onPressed: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (contex) => telaCarregarJogo()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => telaCarregarJogo()));
                       },
                       child: Text('Carregar Salvo'),
                     ),
@@ -111,44 +128,40 @@ class _TelaInicialState extends State<TelaInicial> {
                   padding: const EdgeInsets.all(8.0),
                   child: ButtonTheme(
                     minWidth: 200.0,
-                    child:RaisedButton(
+                    child: RaisedButton(
                       color: Colors.grey,
-                      onPressed: () {Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (contex) => TelaAcessibilidade()));
-                      print(globais.Globais.acessibilidadeOn);
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TelaAcessibilidade()));
+                        print(globais.Globais.acessibilidadeOn);
                       },
                       child: Text('Opções de acessibilidade'),
-                      ),
+                    ),
                   ),
                 )
-              ]
+              ]),
+          SizedBox(
+            height: 140,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              FlatButton(
+                onPressed: () {},
+                child: Text('V1.0.'),
               ),
               SizedBox(
-                height: 140,
+                width: 25.0,
+                height: 20.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FlatButton(
-                    onPressed: () {},
-                    child: Text('V1.0.'),
-                  ),
-                  SizedBox(
-                    width: 25.0,
-                    height: 20.0,
-                  ),
-                  FlatButton(
-                    onPressed: () {},
-                    child: Text('Créditos'),
-                  ),
-                ],
-              )
-            ])));
-
+              FlatButton(
+                onPressed: () {},
+                child: Text('Créditos'),
+              ),
+            ],
+          )
+        ]))));
   }
-
 }
-
-

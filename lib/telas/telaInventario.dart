@@ -37,7 +37,7 @@ class _TelaInventarioState extends State<TelaInventario> {
                 // Navigator.push(
                 //     context,
                 //     MaterialPageRoute(
-                //         builder: (contex) => TelaInGame()));
+                //         builder: (context) => TelaInGame()));
               },
               child: Center(
                 child: Container(

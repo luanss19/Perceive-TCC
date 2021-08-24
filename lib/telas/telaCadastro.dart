@@ -148,7 +148,7 @@ class _telaCadastroState extends State<telaCadastro> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (contex) => TelaInicial()));
+                                          builder: (context) => TelaInicial()));
                               //   } else {
                               //     _alertImagem();
                               //   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:perceive/dados/global.dart' as globais;
 
 void main() {
@@ -21,7 +22,14 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
   acessibilidadeController? _onOff = globais.Globais.acessibilidadeOn == true ? acessibilidadeController.ligado : acessibilidadeController.desligado;
   double _sliderMusica = 50;
   double _sliderNarracao = globais.Globais.volumeTTS*100;
+  final FlutterTts flutterTts = FlutterTts();
 
+  @override
+
+  void initState(){
+    super.initState();
+    flutterTts.stop();
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(

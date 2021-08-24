@@ -32,6 +32,7 @@ class _TelaInGameState extends State<TelaInGame> {
 
   void initState() {
     super.initState();
+    flutterTts.stop();
     setState(() {
       _dbHelper = DatabasePerceive.instance;
       refreshJogadores().whenComplete((){
@@ -210,7 +211,7 @@ class _TelaInGameState extends State<TelaInGame> {
                   style: TextStyle(color: Colors.black),
                 ),
                 Text(
-                  "${_jogador.dinheiro}",
+                  "\$ ${_jogador.dinheiro}",
                   style: TextStyle(color: Colors.black, fontSize: 15),
                 ),
               ],
@@ -224,7 +225,7 @@ class _TelaInGameState extends State<TelaInGame> {
                   Navigator.push(
                   context,
                   MaterialPageRoute(
-                  builder: (contex) => TelaInicial()));
+                  builder: (context) => TelaInicial()));
                   },
                 child: Icon(
                     Icons.pause,
@@ -253,7 +254,7 @@ class _TelaInGameState extends State<TelaInGame> {
               onPressed: () {Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (contex) => TelaInventario()));},
+                      builder: (context) => TelaInventario()));},
             ),
           ),
           Expanded(
@@ -263,7 +264,7 @@ class _TelaInGameState extends State<TelaInGame> {
                 onPressed: () {Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (contex) => TelaPersonagem()));}),
+                        builder: (context) => TelaPersonagem()));}),
           ),
         ],
       ),
