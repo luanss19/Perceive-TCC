@@ -144,8 +144,6 @@ class _TelaInGameState extends State<TelaInGame> {
 
   lerHistoria(String narracao, String escolha1, String escolha2, String escolha3) async{
     if(globais.Globais.acessibilidadeOn == true){
-      await flutterTts.setLanguage("pt-BR");
-      await flutterTts.setPitch(1);
       await flutterTts.setVolume(globais.Globais.volumeTTS);
       if (_historia.eNarracao == true){
         await flutterTts.speak(narracao+"...Escolha 1 :..." + escolha1);

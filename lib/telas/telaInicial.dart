@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:perceive/dados/global.dart' as globais;
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 import 'telaCriacaoJogador.dart';
 
@@ -19,7 +20,6 @@ void main() {
   ));
 }
 
-cerebroHistoria _historia = new cerebroHistoria();
 
 class TelaInicial extends StatefulWidget {
   @override
@@ -27,20 +27,28 @@ class TelaInicial extends StatefulWidget {
 }
 
 class _TelaInicialState extends State<TelaInicial> {
-  Jogador _jogador = Jogador();
   late DatabasePerceive _dbHelper;
   final FlutterTts flutterTts = FlutterTts();
+  AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
 
   @override
   void initState() {
-    flutterTts.stop();
-    if (globais.Globais.acessibilidadeOn == true) {
-      flutterTts.speak(
-          "A tela inicial contém quatro botões.  Primeiro: Novo Jogo.  Segundo: Continuar Jogo.  Terceiro: Carregar Salvo.  Quarto: Opções de Acessibilidade");
-    }
+
+    audioPlayer.open(
+        Audio('assets/music/background.mp3'),
+        showNotification: true,
+      volume: 0.1,
+    );
     setState(() {
+      flutterTts.stop();
+      if (globais.Globais.acessibilidadeOn == true) {
+        flutterTts.speak(
+            "A tela inicial contém quatro botões.  Primeiro: Novo Jogo.  Segundo: Continuar Jogo.  Terceiro: Carregar Salvo.  Quarto: Opções de Acessibilidade");
+      }
       _dbHelper = DatabasePerceive.instance;
     });
+    audioPlayer.setLoopMode(LoopMode.single);
+    audioPlayer.setVolume(globais.Globais.volumeMusica);
     super.initState();
   }
 

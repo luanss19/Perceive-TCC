@@ -28,8 +28,7 @@ class _HomeState extends State<Home> {
 
   void initState(){
     setState(() {
-      flutterTts.speak("Bem vindo ao Perceive, dê um toque na tela para iniciar o jogo com a leitura de tela desativada.   Dois toques na tela para iniciar com a leitura ativada.");
-    });
+      _falaInicial();});
     super.initState();
   }
 
@@ -104,4 +103,13 @@ class _HomeState extends State<Home> {
     // ]))
         );
   }
+  _falaInicial() async{
+    await flutterTts.setLanguage("pt-BR");
+    await flutterTts.setPitch(1);
+    await flutterTts.setVolume(1);
+    await flutterTts.speak("Bem vindo ao Perceive, dê um toque na tela para iniciar o jogo com a leitura de tela desativada.   Dois toques na tela para iniciar com a leitura ativada.");
+
+  }
 }
+
+

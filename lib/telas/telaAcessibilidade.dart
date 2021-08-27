@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:perceive/dados/global.dart' as globais;
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -20,15 +21,22 @@ enum acessibilidadeController { ligado, desligado }
 class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
 
   acessibilidadeController? _onOff = globais.Globais.acessibilidadeOn == true ? acessibilidadeController.ligado : acessibilidadeController.desligado;
-  double _sliderMusica = 50;
+  double _sliderMusica = globais.Globais.volumeMusica*100;
   double _sliderNarracao = globais.Globais.volumeTTS*100;
+  AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
+
   final FlutterTts flutterTts = FlutterTts();
 
   @override
 
   void initState(){
-    super.initState();
     flutterTts.stop();
+    if (globais.Globais.acessibilidadeOn == true) {
+      flutterTts.speak(
+          "A tela de configurações de acessibilidade contém três opções.  Primeiro: Novo Jogo.  Segundo: Continuar Jogo.  Terceiro: Carregar Salvo.  Quarto: Opções de Acessibilidade");
+    }
+    super.initState();
+
   }
 
   Widget build(BuildContext context) {
@@ -111,6 +119,7 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
                     onChanged: (double value) {
                       setState(() {
                         _sliderMusica = value;
+                        checkVolumeM(_sliderMusica);
                       });
                     })
               ]),
@@ -121,6 +130,15 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
     globais.Globais.volumeTTS = volume/100;
     print(globais.Globais.volumeTTS);
     print(globais.Globais.acessibilidadeOn);
+  }
+
+  checkVolumeM(double volume){
+    globais.Globais.volumeMusica = volume/100;
+    print(globais.Globais.volumeMusica);
+    setState(() {
+      audioPlayer.setVolume(globais.Globais.volumeMusica);
+
+    });
   }
 
   checkAcessibilidade(acessibilidadeController _onOff){
