@@ -99,6 +99,7 @@ class _telaCarregarJogoState extends State<telaCarregarJogo> {
     return GestureDetector(
       onTap: () async{
         globais.Globais.numeroHistoria = _jogadores[index].historia!;
+        globais.Globais.nomePlayer = _jogadores[index].nome!;
         globais.Globais.numPlayer = _jogadores[index].id!;
         globais.Globais.restartdemo = false;
         await Navigator.of(context).push(

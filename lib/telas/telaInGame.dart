@@ -46,6 +46,7 @@ class _TelaInGameState extends State<TelaInGame> {
   Future refreshJogadores() async {
     this._jogador = await _dbHelper.carregar(widget.jogadorID);
     globais.Globais.ultimoPlayer = _jogador.id!;
+    globais.Globais.nomePlayer = _jogador.nome!;
   }
 
 
@@ -80,6 +81,7 @@ class _TelaInGameState extends State<TelaInGame> {
                             color: Colors.grey,
                             onPressed: () {
                               setState(() {
+                                globais.Globais.ultimoPlayer = _jogador.id!;
                                 _historia.proxHistoria(1,_jogador);
                                 updateHistoria();
                                 print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
@@ -101,6 +103,7 @@ class _TelaInGameState extends State<TelaInGame> {
                             color: Colors.grey,
                             onPressed: () {
                               setState((){
+                                globais.Globais.ultimoPlayer = _jogador.id!;
                                 _historia.proxHistoria(2,_jogador);
                                 updateHistoria();
                                 print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
@@ -122,6 +125,7 @@ class _TelaInGameState extends State<TelaInGame> {
                             color: Colors.grey,
                             onPressed: () {
                               setState(() {
+                                globais.Globais.ultimoPlayer = _jogador.id!;
                                 _historia.proxHistoria(3,_jogador);
                                 updateHistoria();
                                 lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);

@@ -7,7 +7,7 @@ import 'package:perceive/dados/global.dart' as globais;
 
 class cerebroHistoria {
   List<Historia> _dadosHistoria = [
-    Historia(tituloHistoria: 'Algumas centenas de anos atrás, o Continente de NOMECONTINENTE estava em sua era de ouro pelos bens que a magia trouxera à população local. Magos, guerreiros, e criaturas mágicas vagavam pelas terras de NOMEPAÍS.',
+    Historia(tituloHistoria: ' ${globais.Globais.nomePlayer}Algumas centenas de anos atrás, o Continente de NOMECONTINENTE estava em sua era de ouro pelos bens que a magia trouxera à população local. Magos, guerreiros, e criaturas mágicas vagavam pelas terras de NOMEPAÍS.',
         escolha1: 'Próximo'),//0
 
     Historia(tituloHistoria: 'Após anos de uso irresponsável dos poderes mágicos dados pelos deuses, os humanos perceberam que sua ganância tinha os levado à um caminho sem volta.Por algum motivo as linhas mágicas que ligavam cada ser ao mundo foram seladas, e a magia virou um mito. E os mitos caíram em esquecimento.',

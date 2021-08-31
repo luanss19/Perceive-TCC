@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:perceive/dados/database.dart';
 import 'package:perceive/dados/jogador.dart';
 import 'package:perceive/telas/telaInGame.dart';
 import 'package:perceive/dados/global.dart' as globais;
+import 'package:flutter_tts/flutter_tts.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -18,7 +20,34 @@ class TelaPersonagem extends StatefulWidget {
 
 class _TelaPersonagemState extends State<TelaPersonagem> {
 
-  List<Jogador> _jogadores = [];
+  late Jogador _jogador ;
+  late DatabasePerceive _dbHelper ;
+
+  final FlutterTts flutterTts = FlutterTts();
+
+  void initState() {
+    super.initState();
+    flutterTts.stop();
+    setState(() {
+
+      _dbHelper = DatabasePerceive.instance;
+      refreshJogadores().whenComplete((){
+        setState(() {
+          if (globais.Globais.acessibilidadeOn == true) {
+          flutterTts.speak(
+              "A tela Personagem contém três campos de informação.  "
+                  "Primeiro: Pontos de vida: ${_jogador.vida} de 10.Os pontos de vida representam a saúde do seu personagem e indicam o quão bem ele está.  "
+                  "Segundo: Ataque: ${_jogador.ataque}.Os pontos de ataque do seu personagem representam quanto de dano ele dará por ataque a um inimigo.  "
+                  "Terceiro: Defesa: ${_jogador.defesa}.Os pontos de defesa do seu personagem representam quanto de dano ele não irá tomar por ataque de um inimigo");
+        }});
+      });
+    });
+  }
+
+  Future refreshJogadores() async {
+    this._jogador = await _dbHelper.carregar(globais.Globais.ultimoPlayer);
+    globais.Globais.ultimoPlayer = _jogador.id!;
+  }
 
 
 
@@ -31,7 +60,7 @@ class _TelaPersonagemState extends State<TelaPersonagem> {
             title: GestureDetector(
               onTap: (){
                 Navigator.pop(context);
-                Navigator.pop(context);
+                flutterTts.stop();
                 // Navigator.push(
                 //     context,
                 //     MaterialPageRoute(
@@ -59,7 +88,7 @@ class _TelaPersonagemState extends State<TelaPersonagem> {
                     SizedBox(
                       height: 15,
                     ),
-                    Text("Pontos de vida: ${_jogadores[globais.Globais.numPlayer].vida!}/10",style: TextStyle(fontSize: 25),),
+                    Text("Pontos de vida: ${_jogador.vida}/10",style: TextStyle(fontSize: 25),),
                     SizedBox(
                       height: 10,
                     ),
@@ -68,15 +97,15 @@ class _TelaPersonagemState extends State<TelaPersonagem> {
                     SizedBox(
                       height: 15,
                     ),
-                    Text("Ataque: 1",style: TextStyle(fontSize: 25),),
+                    Text("Ataque: ${_jogador.ataque}",style: TextStyle(fontSize: 25),),
                     SizedBox(
                       height: 15,
                     ),
-                    Text("Os pontos de atque do seu personagem representam quanto de dano ele dará por ataque a um inimigo.",style: TextStyle(fontSize: 15),),
+                    Text("Os pontos de ataque do seu personagem representam quanto de dano ele dará por ataque a um inimigo.",style: TextStyle(fontSize: 15),),
                     SizedBox(
                       height: 15,
                     ),
-                    Text("Defesa: 2",style: TextStyle(fontSize: 25),),
+                    Text("Defesa: ${_jogador.defesa}",style: TextStyle(fontSize: 25),),
                     SizedBox(
                       height: 15,
                     ),

@@ -29,16 +29,23 @@ class TelaInicial extends StatefulWidget {
 class _TelaInicialState extends State<TelaInicial> {
   late DatabasePerceive _dbHelper;
   final FlutterTts flutterTts = FlutterTts();
-  AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
+  AssetsAudioPlayer musica = AssetsAudioPlayer.withId("0");
 
   @override
   void initState() {
+    final player = musica;
+    final playing = player.isPlaying.value;
 
-    audioPlayer.open(
-        Audio('assets/music/background.mp3'),
-        showNotification: true,
+    if(playing != true){
+    musica.open(
+      Audio('assets/music/background.mp3'),
+      showNotification: true,
       volume: 0.1,
     );
+    musica.setLoopMode(LoopMode.single);
+    musica.setVolume(globais.Globais.volumeMusica);
+  }
+
     setState(() {
       flutterTts.stop();
       if (globais.Globais.acessibilidadeOn == true) {
@@ -47,8 +54,7 @@ class _TelaInicialState extends State<TelaInicial> {
       }
       _dbHelper = DatabasePerceive.instance;
     });
-    audioPlayer.setLoopMode(LoopMode.single);
-    audioPlayer.setVolume(globais.Globais.volumeMusica);
+
     super.initState();
   }
 

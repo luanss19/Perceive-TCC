@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:perceive/telas/telaInGame.dart';
+import 'package:perceive/dados/database.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:perceive/dados/global.dart' as globais;
+import 'package:perceive/dados/jogador.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -15,6 +18,35 @@ class TelaInventario extends StatefulWidget {
 }
 
 class _TelaInventarioState extends State<TelaInventario> {
+
+  late Jogador _jogador ;
+  late DatabasePerceive _dbHelper ;
+
+  final FlutterTts flutterTts = FlutterTts();
+
+  void initState() {
+    super.initState();
+    flutterTts.stop();
+    setState(() {
+      _dbHelper = DatabasePerceive.instance;
+      refreshJogadores().whenComplete((){
+        setState(() {
+          if (globais.Globais.acessibilidadeOn == true) {
+          flutterTts.speak(
+              "A tela Inventário contém três campos de informação.  "
+                  "Primeiro: Armas: Todos os espaços estão vazios.  "
+                  "Segundo: Armaduras: Você tem um  Colete de Couro:zero de defesa.  "
+                  "Terceiro: Itens: Todos os espaços estão vazios.");
+        }});
+      });
+    });
+  }
+
+  Future refreshJogadores() async {
+    this._jogador = await _dbHelper.carregar(globais.Globais.ultimoPlayer);
+    globais.Globais.ultimoPlayer = _jogador.id!;
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: DefaultTabController(
@@ -32,13 +64,9 @@ class _TelaInventarioState extends State<TelaInventario> {
             ),
             title: GestureDetector(
               onTap: (){
-                // Navigator.pop(context);
-                // Navigator.pop(context);
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => TelaInGame()));
-              },
+                flutterTts.stop();
+                 Navigator.pop(context);
+                 },
               child: Center(
                 child: Container(
                   decoration: BoxDecoration(
@@ -65,7 +93,7 @@ class _TelaInventarioState extends State<TelaInventario> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Espada",style: TextStyle(fontSize: 20),),
+                    Text("Vazio",style: TextStyle(fontSize: 20),),
                     SizedBox(
                       height: 15,
                     ),
@@ -73,7 +101,7 @@ class _TelaInventarioState extends State<TelaInventario> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Cajado",style: TextStyle(fontSize: 20),),
+                    Text("Vazio",style: TextStyle(fontSize: 20),),
                     SizedBox(
                       height: 15,
                     ),
@@ -97,7 +125,7 @@ class _TelaInventarioState extends State<TelaInventario> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Colete de couro",style: TextStyle(fontSize: 20),),
+                    Text("Colete de couro (Def + 0)",style: TextStyle(fontSize: 20),),
                     SizedBox(
                       height: 15,
                     ),
@@ -129,7 +157,7 @@ class _TelaInventarioState extends State<TelaInventario> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Pedaço de mapa",style: TextStyle(fontSize: 20),),
+                    Text("Vazio",style: TextStyle(fontSize: 20),),
                     SizedBox(
                       height: 15,
                     ),
@@ -137,7 +165,7 @@ class _TelaInventarioState extends State<TelaInventario> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Carta",style: TextStyle(fontSize: 20),),
+                    Text("Vazio",style: TextStyle(fontSize: 20),),
                     SizedBox(
                       height: 15,
                     ),

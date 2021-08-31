@@ -19,7 +19,6 @@ class _criacaoJogadorState extends State<criacaoJogador> {
   final _formKey = GlobalKey<FormState>();
   Jogador _jogador = Jogador();
   Jogador _jogadorTemp = Jogador();
-  List<Jogador> _jogadores = [];
   late DatabasePerceive _dbHelper ;
   final FlutterTts flutterTts = FlutterTts();
 
@@ -90,14 +89,14 @@ class _criacaoJogadorState extends State<criacaoJogador> {
 
             ),
           ),
-          RaisedButton(onPressed: (){
-            _consultar();
-          },
-          child:Text('Listar')),
-          RaisedButton(onPressed: (){
-            _deletar();
-          },
-              child:Text('Deletar'))
+          // RaisedButton(onPressed: (){
+          //   _consultar();
+          // },
+          // child:Text('Listar')),
+          // RaisedButton(onPressed: (){
+          //   _deletar();
+          // },
+          //     child:Text('Deletar'))
         ],
       ),
     ),

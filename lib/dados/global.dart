@@ -6,6 +6,7 @@ class Globais {
   static int numeroHistoria = 0;
   static int numPlayer = 0;
   static int ultimoPlayer = 0;
+  static var nomePlayer;
 
 
 }

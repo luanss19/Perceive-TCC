@@ -33,7 +33,7 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
     flutterTts.stop();
     if (globais.Globais.acessibilidadeOn == true) {
       flutterTts.speak(
-          "A tela de configurações de acessibilidade contém três opções.  Primeiro: Novo Jogo.  Segundo: Continuar Jogo.  Terceiro: Carregar Salvo.  Quarto: Opções de Acessibilidade");
+          "A tela de configurações de acessibilidade contém três opções.  Primeira: Alterar o modo de leitura de texto por voz entre ligade e desligado.  Segunda: Controle de Volume do Narrador.  Terceiro: Controle de Volume da música.");
     }
     super.initState();
 
