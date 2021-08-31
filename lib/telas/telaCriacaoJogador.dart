@@ -93,10 +93,10 @@ class _criacaoJogadorState extends State<criacaoJogador> {
           //   _consultar();
           // },
           // child:Text('Listar')),
-          // RaisedButton(onPressed: (){
-          //   _deletar();
-          // },
-          //     child:Text('Deletar'))
+           RaisedButton(onPressed: (){
+             _deletar();
+           },
+               child:Text('Deletar'))
         ],
       ),
     ),
@@ -133,10 +133,10 @@ class _criacaoJogadorState extends State<criacaoJogador> {
       _jogadorTemp = await _dbHelper.ultimoRegistro();
       print (_jogadorTemp.id);
       globais.Globais.numPlayer = _jogadorTemp.id!;
+      globais.Globais.nomePlayer = _jogadorTemp.nome!;
       globais.Globais.numeroHistoria=0;
       globais.Globais.ultimoPlayer = _jogadorTemp.id!;
       print(globais.Globais.numPlayer);
-      print(_jogador.id);
       form.reset();
       Navigator.push(
           context,

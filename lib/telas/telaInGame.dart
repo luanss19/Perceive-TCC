@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:perceive/dados/database.dart';
 import 'package:perceive/dados/jogador.dart';
 import 'package:perceive/historia/cerebroHistoria.dart';
+import 'package:perceive/historia/historia.dart';
 import 'package:perceive/telas/telaInicial.dart';
 import 'package:perceive/telas/telaInventario.dart';
 import 'package:perceive/telas/telaPersonagem.dart';
@@ -37,6 +38,7 @@ class _TelaInGameState extends State<TelaInGame> {
       _dbHelper = DatabasePerceive.instance;
       refreshJogadores().whenComplete((){
         setState(() {});
+
       });
 
     });
@@ -47,6 +49,8 @@ class _TelaInGameState extends State<TelaInGame> {
     this._jogador = await _dbHelper.carregar(widget.jogadorID);
     globais.Globais.ultimoPlayer = _jogador.id!;
     globais.Globais.nomePlayer = _jogador.nome!;
+    _historia.dadosHistoria[0] = Historia(tituloHistoria: ' ${_jogador.nome} Algumas centenas de anos atrás, o Continente de NOMECONTINENTE estava em sua era de ouro pelos bens que a magia trouxera à população local. Magos, guerreiros, e criaturas mágicas vagavam pelas terras de NOMEPAÍS.',
+        escolha1: 'Próximo');
   }
 
 
@@ -280,6 +284,7 @@ class _TelaInGameState extends State<TelaInGame> {
   todasLinhas.forEach((row) => print(row));
   print(_jogador.id);
   print(_jogador.historia);
+  print(globais.Globais.nomePlayer);
   globais.Globais.ultimoPlayer = _jogador.id!;
  }
 }
