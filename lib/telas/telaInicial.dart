@@ -98,6 +98,7 @@ class _TelaInicialState extends State<TelaInicial> {
                     child: RaisedButton(
                       color: Colors.grey,
                       onPressed: () {
+                        globais.Globais.restartdemo = false;
                         if(globais.Globais.ultimoPlayer != 0){
                           Navigator.push(
                               context,

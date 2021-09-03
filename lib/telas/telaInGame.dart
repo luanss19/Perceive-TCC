@@ -42,15 +42,23 @@ class _TelaInGameState extends State<TelaInGame> {
       });
 
     });
-    WidgetsBinding.instance!.addPostFrameCallback((_) => lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3));
+    WidgetsBinding.instance!.addPostFrameCallback((_) => lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2));
   }
 
   Future refreshJogadores() async {
     this._jogador = await _dbHelper.carregar(widget.jogadorID);
     globais.Globais.ultimoPlayer = _jogador.id!;
     globais.Globais.nomePlayer = _jogador.nome!;
-    _historia.dadosHistoria[0] = Historia(tituloHistoria: ' ${_jogador.nome} Algumas centenas de anos atrás, o Continente de NOMECONTINENTE estava em sua era de ouro pelos bens que a magia trouxera à população local. Magos, guerreiros, e criaturas mágicas vagavam pelas terras de NOMEPAÍS.',
+    _historia.dadosHistoria[4] = Historia(tituloHistoria: ' ${_jogador.nome}, você faz parte de um grupo investigativo contratado por nobres que eram antigos '
+        'aliados do rei, seu objetivo é descobrir o que causou a morte de ambos Rei e Rainha.',
         escolha1: 'Próximo');
+    _historia.dadosHistoria[9] = Historia(tituloHistoria: 'Após bater na porta dos fundos algumas vezes e não ter nenhuma resposta, ${_jogador.nome} '
+        'decidiu voltar no próximo dia. Percebendo que estava na mira dos investigadores reais, o dono da peculiar casa do subúrbio '
+        'de Melenor fugiu para uma das cidades rurais do Reino, levando consigo as únicas informações que ajudariam você a completar sua missão.',
+        escolha1: 'Fim do jogo. Você não alcançou seu objetivo.');
+    _historia.dadosHistoria[26] = Historia(tituloHistoria: ' ${_jogador.nome} observa atentamente essas novas informações, e sem trocar muitas palavras parte em '
+        'direção aos portões da cidade. Com cada vez mais determinação em desvendar os mistérios que envolvem este assassinato.',
+        escolha1: 'Final 1 de 3 da demo. Jogue mais para descobrir os outros.');
   }
 
 
@@ -72,8 +80,7 @@ class _TelaInGameState extends State<TelaInGame> {
                     SizedBox(
                         width: 350,
                         child:
-                        Text(_historia.historia.tituloHistoria,
-                             style: TextStyle(fontSize: 15 ),)),
+                        Text(_historia.historia.tituloHistoria,style: TextStyle(fontSize: 15 ),)),
                     SizedBox(
                       height: 30,
                     ),
@@ -88,11 +95,14 @@ class _TelaInGameState extends State<TelaInGame> {
                                 globais.Globais.ultimoPlayer = _jogador.id!;
                                 _historia.proxHistoria(1,_jogador);
                                 updateHistoria();
-                                print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
-                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
+                                print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2);
+                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2);
                               });
                             },
-                            child:Text(_historia.historia.escolha1),
+                            child:Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(_historia.historia.escolha1),
+                            ),
 
                           ),
                       ),
@@ -110,38 +120,18 @@ class _TelaInGameState extends State<TelaInGame> {
                                 globais.Globais.ultimoPlayer = _jogador.id!;
                                 _historia.proxHistoria(2,_jogador);
                                 updateHistoria();
-                                print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
-                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
+                                print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2);
+                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2);
                               });
                             },
-                            child: Text(_historia.historia.escolha2),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(_historia.historia.escolha2),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Visibility(
-                        visible: _historia.botaoVisivel2(),
-                        child: ButtonTheme(
-                          minWidth: 200.0,
-                          child: RaisedButton(
-                            color: Colors.grey,
-                            onPressed: () {
-                              setState(() {
-                                globais.Globais.ultimoPlayer = _jogador.id!;
-                                _historia.proxHistoria(3,_jogador);
-                                updateHistoria();
-                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2,_historia.historia.escolha3);
-                                print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2+_historia.historia.escolha3);
-                              });
-                              print(globais.Globais.numeroHistoria);
-                            },
-                            child: Text(_historia.historia.escolha3)
-                          ),
-                        ),
-                      ),
-                    ),
+                    )//terceiro botão estava aqui
                   ]
               ),
             )
@@ -150,14 +140,14 @@ class _TelaInGameState extends State<TelaInGame> {
   }
 
 
-  lerHistoria(String narracao, String escolha1, String escolha2, String escolha3) async{
+  lerHistoria(String narracao, String escolha1, String escolha2) async{
     if(globais.Globais.acessibilidadeOn == true){
       await flutterTts.setVolume(globais.Globais.volumeTTS);
       if (_historia.eNarracao == true){
         await flutterTts.speak(narracao+"...Escolha 1 :..." + escolha1);
       }
       else {
-        await flutterTts.speak(narracao + "... Escolha 1 : ..." + escolha1 + "... Escolha 2 : ..." + escolha2 + "... Escolha 3 : ..." + escolha3);
+        await flutterTts.speak(narracao + "... Escolha 1 : ..." + escolha1 + "... Escolha 2 : ..." + escolha2);
       }
       if (globais.Globais.restartdemo == true) {
         await flutterTts.stop();
