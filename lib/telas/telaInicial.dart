@@ -1,9 +1,8 @@
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:perceive/dados/database.dart';
-import 'package:perceive/dados/jogador.dart';
-import 'package:perceive/historia/cerebroHistoria.dart';
 import 'package:perceive/telas/telaAcessibilidade.dart';
 import 'package:perceive/telas/telaCarregarJogo.dart';
+import 'package:perceive/telas/telaCreditos.dart';
 import 'package:perceive/telas/telaInGame.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class TelaInicial extends StatefulWidget {
 class _TelaInicialState extends State<TelaInicial> {
   late DatabasePerceive _dbHelper;
   final FlutterTts flutterTts = FlutterTts();
-  AssetsAudioPlayer musica = AssetsAudioPlayer.withId("0");
+  final AssetsAudioPlayer musica = Get.put(AssetsAudioPlayer());
 
   @override
   void initState() {
@@ -41,9 +40,8 @@ class _TelaInicialState extends State<TelaInicial> {
       Audio('assets/music/background.mp3'),
       showNotification: true,
       volume: 0.1,
+      loopMode: LoopMode.single
     );
-    musica.setLoopMode(LoopMode.single);
-    musica.setVolume(globais.Globais.volumeMusica);
   }
 
     setState(() {
@@ -146,10 +144,7 @@ class _TelaInicialState extends State<TelaInicial> {
                     child: RaisedButton(
                       color: Colors.grey,
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TelaAcessibilidade()));
+                        Get.to(TelaAcessibilidade());
                         print(globais.Globais.acessibilidadeOn);
                       },
                       child: Text('Opções de acessibilidade'),
@@ -164,7 +159,13 @@ class _TelaInicialState extends State<TelaInicial> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  if(globais.Globais.acessibilidadeOn == true){
+                    flutterTts.speak("Você está jogando uma versão Demo um ponto zero, espere por atualizações futuras.");
+                  }
+                  final snackBar = SnackBar(content: Text('Você está jogando uma versão Demo (1.0), espere por atualizações futuras.'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                },
                 child: Text('V1.0.'),
               ),
               SizedBox(
@@ -172,7 +173,9 @@ class _TelaInicialState extends State<TelaInicial> {
                 height: 20.0,
               ),
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(TelaCreditos());
+                },
                 child: Text('Créditos'),
               ),
             ],

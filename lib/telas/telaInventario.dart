@@ -34,7 +34,7 @@ class _TelaInventarioState extends State<TelaInventario> {
           if (globais.Globais.acessibilidadeOn == true) {
           flutterTts.speak(
               "A tela Inventário contém três campos de informação.  "
-                  "Primeiro: Armas: Todos os espaços estão vazios.  "
+                  "Primeiro: Armas: Você tem uma  Espada:um de ataque.  "
                   "Segundo: Armaduras: Você tem um  Colete de Couro:zero de defesa.  "
                   "Terceiro: Itens: Todos os espaços estão vazios.");
         }});
@@ -93,7 +93,7 @@ class _TelaInventarioState extends State<TelaInventario> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Vazio",style: TextStyle(fontSize: 20),),
+                    Text("Espada (+1)",style: TextStyle(fontSize: 20),),
                     SizedBox(
                       height: 15,
                     ),
@@ -125,7 +125,7 @@ class _TelaInventarioState extends State<TelaInventario> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("Colete de couro (Def + 0)",style: TextStyle(fontSize: 20),),
+                    Text("Colete de couro (+0)",style: TextStyle(fontSize: 20),),
                     SizedBox(
                       height: 15,
                     ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:get/get.dart';
 import 'package:perceive/dados/global.dart' as globais;
 import 'package:assets_audio_player/assets_audio_player.dart';
 
@@ -23,7 +24,8 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
   acessibilidadeController? _onOff = globais.Globais.acessibilidadeOn == true ? acessibilidadeController.ligado : acessibilidadeController.desligado;
   double _sliderMusica = globais.Globais.volumeMusica*100;
   double _sliderNarracao = globais.Globais.volumeTTS*100;
-  AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
+  final AssetsAudioPlayer musica = Get.find();
+
 
   final FlutterTts flutterTts = FlutterTts();
 
@@ -98,7 +100,7 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
                     value: _sliderNarracao,
                     min: 0,
                     max: 100,
-                    divisions: 5,
+                    divisions: 10,
                     label: _sliderNarracao.round().toString(),
                     onChanged: (double value) {
                       setState(() {
@@ -114,7 +116,7 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
                     value: _sliderMusica,
                     min: 0,
                     max: 100,
-                    divisions: 5,
+                    divisions: 10,
                     label: _sliderMusica.round().toString(),
                     onChanged: (double value) {
                       setState(() {
@@ -128,16 +130,12 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
 
   checkVolume(double volume){
     globais.Globais.volumeTTS = volume/100;
-    print(globais.Globais.volumeTTS);
-    print(globais.Globais.acessibilidadeOn);
   }
 
   checkVolumeM(double volume){
     globais.Globais.volumeMusica = volume/100;
-    print(globais.Globais.volumeMusica);
     setState(() {
-      audioPlayer.setVolume(globais.Globais.volumeMusica);
-
+      musica.setVolume(globais.Globais.volumeMusica);
     });
   }
 
@@ -147,7 +145,6 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
     }else if (_onOff == acessibilidadeController.desligado){
       globais.Globais.acessibilidadeOn = false;
     }
-    print(globais.Globais.acessibilidadeOn);
   }
   barraSuperior() {
     return AppBar(
@@ -156,6 +153,12 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
         ),
         backgroundColor: Colors.white,
         shadowColor: null,
+        leading: new IconButton(
+        icon: new Icon(Icons.arrow_back),
+          onPressed: () {
+          flutterTts.stop();
+          Get.back();}
+            ),
         title: Center(
           child: Text(
             "Opções de Acessibilidade",

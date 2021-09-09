@@ -274,7 +274,8 @@ class _TelaInGameState extends State<TelaInGame> {
   todasLinhas.forEach((row) => print(row));
   print(_jogador.id);
   print(_jogador.historia);
-  print(globais.Globais.nomePlayer);
+  print(globais.Globais.acessibilidadeOn);
+
   globais.Globais.ultimoPlayer = _jogador.id!;
  }
 }

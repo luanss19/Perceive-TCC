@@ -135,13 +135,6 @@ class _telaCarregarJogoState extends State<telaCarregarJogo> {
       ),
     );
   }
-
-
-
-
-
-
-
 }
 
 

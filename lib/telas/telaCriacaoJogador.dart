@@ -29,6 +29,10 @@ class _criacaoJogadorState extends State<criacaoJogador> {
     super.initState();
     setState(() {
       _dbHelper = DatabasePerceive.instance;
+      if (globais.Globais.acessibilidadeOn == true) {
+        flutterTts.speak(
+            "A tela de criação de jogo tem um campo para a inserção do nome do seu novo personagem e um botão escrito Iniciar Aventura.");
+      }
     });
   }
 
@@ -120,10 +124,10 @@ class _criacaoJogadorState extends State<criacaoJogador> {
 
       _jogador.historia = 0;
       _jogador.vida = 10;
-      _jogador.ataque = 0;
+      _jogador.ataque = 1;
       _jogador.defesa = 0;
-      _jogador.dinheiro = 0;
-      _jogador.arma = 0;
+      _jogador.dinheiro = 75;
+      _jogador.arma = 1;
       _jogador.armadura = 0;
       _jogador.item1 = 0;
       _jogador.item2 = 0;
@@ -131,12 +135,10 @@ class _criacaoJogadorState extends State<criacaoJogador> {
       form.save();
       var id = await _dbHelper.salvarJogador(_jogador);
       _jogadorTemp = await _dbHelper.ultimoRegistro();
-      print (_jogadorTemp.id);
       globais.Globais.numPlayer = _jogadorTemp.id!;
       globais.Globais.nomePlayer = _jogadorTemp.nome!;
       globais.Globais.numeroHistoria=0;
       globais.Globais.ultimoPlayer = _jogadorTemp.id!;
-      print(globais.Globais.numPlayer);
       form.reset();
       Navigator.push(
           context,
