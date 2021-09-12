@@ -121,12 +121,6 @@ class _telaCarregarJogoState extends State<telaCarregarJogo> {
                     style: TextStyle(fontSize: 25),),
                   Text(_jogadores[index].nome!,
                     style: TextStyle(fontSize: 10),),
-//                  RaisedButton(
-//                    child: Text("Editar"),
-//                    onPressed: () {
-//                      _navCriarAlterar(jogador: jogadores[index]);
-//                    },
-//                  )
                 ],
               )
             ],

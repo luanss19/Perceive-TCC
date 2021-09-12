@@ -1,14 +1,16 @@
-import 'package:perceive/telas/telaCadastro.dart';
-import 'package:perceive/telas/telaLogin.dart';
+//import 'package:perceive/telas/telaCadastro.dart';
+//import 'package:perceive/telas/telaLogin.dart';
 import 'package:perceive/telas/telaInicial.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:perceive/dados/global.dart' as globais;
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 
-void main() {
+main() async  {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(GetMaterialApp(
     title: 'Perceive',
     theme: ThemeData(primaryColor: Colors.grey,visualDensity: VisualDensity.adaptivePlatformDensity),
@@ -21,8 +23,9 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver{
   final FlutterTts flutterTts = FlutterTts();
+  final AssetsAudioPlayer musica = Get.put(AssetsAudioPlayer());
 
   @override
 
@@ -30,9 +33,27 @@ class _HomeState extends State<Home> {
     setState(() {
       _falaInicial();});
     super.initState();
+    WidgetsBinding.instance!.addObserver(this);
   }
 
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      musica.play();
+    } else {
+      musica.pause();
+    }
+  }
+
+
   Widget build(BuildContext context) {
+
     return Scaffold(body: InkWell(
       onTap: (){
         globais.Globais.acessibilidadeOn = false;

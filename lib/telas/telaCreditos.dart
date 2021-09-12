@@ -28,7 +28,7 @@ class _TelaCreditosState extends State<TelaCreditos> {
     setState(() {
         setState(() {
           if (globais.Globais.acessibilidadeOn == true) {
-            flutterTts.speak("A tela Créditos tem dois campos de informação.   Primeiro: Desenvolvimento do Aplicativo: Feito por Luan Silva da Silva.  Segundo: Desenvolvimento da História: Feito por Luan Silva da Silva e Pietro Peres Duarte Mesquita da Silva");
+            flutterTts.speak("A tela Créditos tem três campos de informação.   Primeiro: Desenvolvimento do Aplicativo: Feito por Luan Silva da Silva.  Segundo: Desenvolvimento da História: Feito por Luan Silva da Silva e Pietro Peres Duarte Mesquita da Silva. Terceiro: Professor Orientador: João Júnior da Silva Machado");
           }});
       });
   }
@@ -68,9 +68,21 @@ class _TelaCreditosState extends State<TelaCreditos> {
                       child: Text('Luan Silva da Silva', style: TextStyle(decoration: TextDecoration.underline, color: Colors.blue)),
                       onTap: () => launch('https://github.com/luanss19')
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   InkWell(
                       child: Text('Pietro Peres Duarte Mesquita da Silva', style: TextStyle(decoration: TextDecoration.underline, color: Colors.blue)),
                       onTap: () => launch('https://www.wattpad.com/user/PietroPeresDuarte')
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),Text("Professor Orientador",style: TextStyle(fontSize: 25),),
+                  SizedBox(
+                    height: 10,
+                  ),InkWell(
+                      child: Text('João Júnior da Silva Machado', style: TextStyle(decoration: TextDecoration.underline, color: Colors.blue)),
+                      onTap: () => launch('http://lattes.cnpq.br/0061415619122233')
                   ),
                   SizedBox(
                     height: 15,

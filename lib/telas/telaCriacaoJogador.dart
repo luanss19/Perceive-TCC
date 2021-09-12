@@ -93,14 +93,6 @@ class _criacaoJogadorState extends State<criacaoJogador> {
 
             ),
           ),
-          // RaisedButton(onPressed: (){
-          //   _consultar();
-          // },
-          // child:Text('Listar')),
-          //RaisedButton(onPressed: (){
-          //  _deletar();
-          //},
-          //    child:Text('Deletar'))
         ],
       ),
     ),

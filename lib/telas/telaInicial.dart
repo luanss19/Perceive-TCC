@@ -28,7 +28,8 @@ class TelaInicial extends StatefulWidget {
 class _TelaInicialState extends State<TelaInicial> {
   late DatabasePerceive _dbHelper;
   final FlutterTts flutterTts = FlutterTts();
-  final AssetsAudioPlayer musica = Get.put(AssetsAudioPlayer());
+  final AssetsAudioPlayer musica = Get.find();
+
 
   @override
   void initState() {
@@ -38,7 +39,7 @@ class _TelaInicialState extends State<TelaInicial> {
     if(playing != true){
     musica.open(
       Audio('assets/music/background.mp3'),
-      showNotification: true,
+      showNotification: false,
       volume: 0.1,
       loopMode: LoopMode.single
     );
@@ -55,6 +56,7 @@ class _TelaInicialState extends State<TelaInicial> {
 
     super.initState();
   }
+
 
   Widget build(BuildContext context) {
     return new WillPopScope(

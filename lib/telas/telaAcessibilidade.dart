@@ -41,7 +41,8 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
 
   }
 
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
+    bool isChecked = musica.isPlaying.value;
     return Scaffold(
         appBar: barraSuperior(),
         body: SingleChildScrollView(
@@ -123,7 +124,22 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
                         _sliderMusica = value;
                         checkVolumeM(_sliderMusica);
                       });
-                    })
+                    }),
+                StatefulBuilder (
+                  builder: (context, setState) {
+                    return CheckboxListTile(
+                      title: Text("Música Ligada/Desligada"),
+                      value: isChecked,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isChecked = value!;
+                        });
+                        isChecked ? musica.play() : musica.pause();
+                      },
+                      controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+                    );
+                  }
+                )
               ]),
         )));
   }

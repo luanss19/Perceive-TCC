@@ -60,11 +60,11 @@ class cerebroHistoria {
       escolha1: 'Falar - "Você sabe por que estou aqui, vim buscar as informações que você tem sobre o assassinato do Rei."'),//11
 
     Historia(tituloHistoria: 'Você chuta a porta violentamente estraçalhando a fechadura. Em uma parte mais escura do local, '
-        'uma figura grande de cabelos negros fita você com um semblante de medo',
+        'uma figura grande de cabelos negros fita você com um semblante de medo.',
         escolha1: 'Próximo'),//12
 
     Historia(tituloHistoria: '"Não adianta se esconder nas sombras, eu sabia que você estava aqui. Vim buscar as malditas '
-        'informações que você tem sobre o assassinato do Rei" - Você brada em frente a porta',
+        'informações que você tem sobre o assassinato do Rei" - Você brada em frente a porta.',
         escolha1: 'Próximo'),//13
 
     Historia(tituloHistoria: '"Você está atrás da pessoa errada, eu não tenho as informações que você procura. Sou apenas um'
@@ -73,7 +73,7 @@ class cerebroHistoria {
     escolha2: 'Blefar - "Você as tem, e não minta para mim. Eu sei que foi de você que vieram as adagas que mataram o Rei".',),//14
 
     Historia(tituloHistoria: '"Eu realmente não sei do que você está falando, como disse eu sou apenas um mercador. E se eles me viram lá eu '
-        'provavelmente estava trabalhando. Por quê não investiga os outros vendedores também" - Diz o Homem',
+        'provavelmente estava trabalhando. Por quê não investiga os outros vendedores também" - Diz o Homem.',
       escolha1: 'Intimidar - "Você é um mercador de armas mas sou eu que sei usá-las, então é melhor abrir o jogo".',
       escolha2: 'Falar - "Por quê os meus informantes o viram falando com os suspeitos do assassinato".',),//15
 
@@ -100,7 +100,7 @@ class cerebroHistoria {
         escolha1: 'Final 3 de 3 da demo. Jogue mais para descobrir os outros.'),
 
     Historia(tituloHistoria: '"O mercado de armas é muito movimentado durante o dia, eu não tenho como saber quem são os compradores e não posso vender '
-        'meus produtos sem falar com os clientes." - Fala o mercador',
+        'meus produtos sem falar com os clientes." - Fala o mercador.',
         escolha1: 'Observar o local em busca de pistas'),//21
 
     Historia(tituloHistoria: 'Você observa um local bagunçado, caixas de mercadorias se espalham pela sala principal e algumas armas jazem sobre uma mesa '
@@ -117,7 +117,8 @@ class cerebroHistoria {
         escolha1: 'Próximo'),//24
 
     Historia(tituloHistoria: 'Ao observar atentamente cada nome anotado no dia do assassinato, você acaba percebendo um nome conhecido, um dos sacerdotes '
-        'do templo de Zahar - Marcus Hector - mas apesar de reconhecer o nome você não tem muitas informações de quem ele é. Apenas sabe que ele habita o templo da ordem, que fica fora dos limites da cidade.',
+        'do templo de Zahar - Marcus Hector - mas apesar de reconhecer o nome você não tem muitas informações de quem ele é. Apenas sabe que ele habita o '
+        'templo da ordem, que fica fora dos limites da cidade.',
         escolha1: 'Próximo'),//25
 
     Historia(tituloHistoria: 'PLAYER observa atentamente essas novas informações, e sem trocar muitas palavras parte em direção aos portões da cidade. Com cada '
