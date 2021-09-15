@@ -24,7 +24,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with WidgetsBindingObserver{
-  final FlutterTts flutterTts = FlutterTts();
+  final FlutterTts flutterTts = Get.put(FlutterTts());
   final AssetsAudioPlayer musica = Get.put(AssetsAudioPlayer());
 
   @override
@@ -48,6 +48,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
       musica.play();
     } else {
       musica.pause();
+      flutterTts.stop();
     }
   }
 

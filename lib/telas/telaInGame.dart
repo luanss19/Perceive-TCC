@@ -68,74 +68,7 @@ class _TelaInGameState extends State<TelaInGame> {
     return Scaffold(
         appBar: barraSuperior(),
         bottomNavigationBar: barraInferior(),
-        body: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 30,
-                    ),
-                    SizedBox(
-                        width: 350,
-                        child:
-                        Text(_historia.historia.tituloHistoria,style: TextStyle(fontSize: 15 ),)),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ButtonTheme(
-                          minWidth: 200.0,
-                          child: RaisedButton(
-                            color: Colors.grey,
-                            onPressed: () {
-                              setState(() {
-                                globais.Globais.ultimoPlayer = _jogador.id!;
-                                _historia.proxHistoria(1,_jogador);
-                                updateHistoria();
-                                print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2);
-                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2);
-                              });
-                            },
-                            child:Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(_historia.historia.escolha1),
-                            ),
-
-                          ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Visibility(
-                        visible: _historia.botaoVisivel(),
-                        child: ButtonTheme(
-                          minWidth: 200.0,
-                          child: RaisedButton(
-                            color: Colors.grey,
-                            onPressed: () {
-                              setState((){
-                                globais.Globais.ultimoPlayer = _jogador.id!;
-                                _historia.proxHistoria(2,_jogador);
-                                updateHistoria();
-                                print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2);
-                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2);
-                              });
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(_historia.historia.escolha2),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )//terceiro botão estava aqui
-                  ]
-              ),
-            )
-        )
+        body: tipoTela()
     );
   }
 
@@ -265,6 +198,173 @@ class _TelaInGameState extends State<TelaInGame> {
         ],
       ),
     );
+  }
+
+   tipoTela(){
+    if(globais.Globais.acessibilidadeOn == true){
+      return InkWell(
+          onLongPress: (){
+            setState(() {
+              globais.Globais.ultimoPlayer = _jogador.id!;
+              _historia.proxHistoria(1,_jogador);
+              updateHistoria();
+              print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2);
+              lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2);
+            });
+          },
+          onDoubleTap: (){
+            if(_historia.eNarracao == false){
+            setState((){
+              globais.Globais.ultimoPlayer = _jogador.id!;
+              _historia.proxHistoria(2,_jogador);
+              updateHistoria();
+              print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2);
+              lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2);
+            });
+          }},
+
+        child: Center(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            alignment: Alignment.topCenter,
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                      width: 350,
+                      child:
+                      Text(_historia.historia.tituloHistoria,style: TextStyle(fontSize: 15 ),)),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ButtonTheme(
+                      minWidth: 200.0,
+                      child: RaisedButton(
+                        color: Colors.grey,
+                        onPressed: () {
+                          setState(() {
+                            globais.Globais.ultimoPlayer = _jogador.id!;
+                            _historia.proxHistoria(1,_jogador);
+                            updateHistoria();
+                            print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2);
+                            lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2);
+                          });
+                        },
+                        child:Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(_historia.historia.escolha1),
+                        ),
+
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Visibility(
+                      visible: _historia.botaoVisivel(),
+                      child: ButtonTheme(
+                        minWidth: 200.0,
+                        child: RaisedButton(
+                          color: Colors.grey,
+                          onPressed: () {
+                            setState((){
+                              globais.Globais.ultimoPlayer = _jogador.id!;
+                              _historia.proxHistoria(2,_jogador);
+                              updateHistoria();
+                              print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2);
+                              lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2);
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(_historia.historia.escolha2),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),//terceiro botão estava aqui
+                ]
+            ),
+          ),
+     )
+
+   );
+    }else{
+        return SingleChildScrollView(
+            child: Center(
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 30,
+                    ),
+                    SizedBox(
+                        width: 350,
+                        child:
+                        Text(_historia.historia.tituloHistoria,style: TextStyle(fontSize: 15 ),)),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ButtonTheme(
+                        minWidth: 200.0,
+                        child: RaisedButton(
+                          color: Colors.grey,
+                          onPressed: () {
+                            setState(() {
+                              globais.Globais.ultimoPlayer = _jogador.id!;
+                              _historia.proxHistoria(1,_jogador);
+                              updateHistoria();
+                              print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2);
+                              lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2);
+                            });
+                          },
+                          child:Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(_historia.historia.escolha1),
+                          ),
+
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Visibility(
+                        visible: _historia.botaoVisivel(),
+                        child: ButtonTheme(
+                          minWidth: 200.0,
+                          child: RaisedButton(
+                            color: Colors.grey,
+                            onPressed: () {
+                              setState((){
+                                globais.Globais.ultimoPlayer = _jogador.id!;
+                                _historia.proxHistoria(2,_jogador);
+                                updateHistoria();
+                                print(_historia.historia.tituloHistoria+_historia.historia.escolha1+_historia.historia.escolha2);
+                                lerHistoria(_historia.historia.tituloHistoria,_historia.historia.escolha1,_historia.historia.escolha2);
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(_historia.historia.escolha2),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )//terceiro botão estava aqui
+                  ]
+              ),
+            )
+        );
+      }
   }
  Future updateHistoria() async{
   await _dbHelper.updateHistoria(_jogador.id!, globais.Globais.numeroHistoria);

@@ -27,7 +27,7 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
   final AssetsAudioPlayer musica = Get.find();
 
 
-  final FlutterTts flutterTts = FlutterTts();
+  final FlutterTts flutterTts = Get.find();
 
   @override
 
@@ -146,6 +146,9 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
 
   checkVolume(double volume){
     globais.Globais.volumeTTS = volume/100;
+    setState(() {
+      flutterTts.setVolume(globais.Globais.volumeTTS);
+    });
   }
 
   checkVolumeM(double volume){

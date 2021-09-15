@@ -27,7 +27,7 @@ class TelaInicial extends StatefulWidget {
 
 class _TelaInicialState extends State<TelaInicial> {
   late DatabasePerceive _dbHelper;
-  final FlutterTts flutterTts = FlutterTts();
+  final FlutterTts flutterTts = Get.find();
   final AssetsAudioPlayer musica = Get.find();
 
 
