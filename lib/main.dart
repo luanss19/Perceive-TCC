@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:perceive/dados/global.dart' as globais;
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
-
+import 'package:flutter/services.dart';
 
 main() async  {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +54,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
 
 
   Widget build(BuildContext context) {
-
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     return Scaffold(body: InkWell(
       onTap: (){
         globais.Globais.acessibilidadeOn = false;

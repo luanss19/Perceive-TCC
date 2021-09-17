@@ -5,7 +5,8 @@ import 'package:perceive/dados/database.dart';
 import 'package:perceive/dados/jogador.dart';
 import 'package:perceive/dados/global.dart' as globais;
 import 'package:perceive/telas/telaInGame.dart';
-
+import 'package:perceive/telas/telaInicial.dart';
+import 'package:swipe/swipe.dart';
 
 
 class criacaoJogador extends StatefulWidget {
@@ -51,20 +52,55 @@ class _criacaoJogadorState extends State<criacaoJogador> {
   }
 
   Widget corpo() {
-    return SingleChildScrollView(
-      padding: EdgeInsets.all(15),
-      child: Column(
-        children: <Widget>[
-          Text("PERCEIVE",
-              textAlign: TextAlign.center, style: TextStyle(fontSize: 55)),
-          SizedBox(
-              height: 120.0
-          ),
-          _form(),
-        ],
-      ),
-    );
+    if (globais.Globais.acessibilidadeOn == true) {
+      return Center(
+              child: Swipe(
+                verticalMinVelocity: 100,
+                horizontalMinVelocity: 100,
+                onSwipeUp: () {
+                  Navigator.pop(context);
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => TelaInicial()));
+                },
+                onSwipeDown: () {
+                  flutterTts.stop();
+                  flutterTts.speak(
+                      "Tutorial de Comandos: Deslizar o dedo no meio da tela para a direita, vai para a tela de inventário. Deslizar para a  esquerda vai para a tela de Personagem. Delizar para cima Volta ao menu principal.");
+                },
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  alignment: Alignment.topCenter,
+                  color: Colors.transparent,
+                  child: Column(
+                    children: <Widget>[
+                      Text("PERCEIVE",
+                          textAlign: TextAlign.center, style: TextStyle(fontSize: 55)),
+                      SizedBox(
+                          height: 120.0
+                      ),
+                      _form(),
+                    ],
+                  ),
+                ),
+              ));
+    } else {
+      return SingleChildScrollView(
+        padding: EdgeInsets.all(15),
+        child: Column(
+          children: <Widget>[
+            Text("PERCEIVE",
+                textAlign: TextAlign.center, style: TextStyle(fontSize: 55)),
+            SizedBox(
+                height: 120.0
+            ),
+            _form(),
+          ],
+        ),
+      );
+    }
   }
+
+
   _form() => Container(
     color: Colors.white,
     padding:  EdgeInsets.symmetric(vertical: 15,horizontal: 30),

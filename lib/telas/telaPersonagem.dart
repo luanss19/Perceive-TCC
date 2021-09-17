@@ -5,6 +5,7 @@ import 'package:perceive/dados/jogador.dart';
 import 'package:perceive/telas/telaInGame.dart';
 import 'package:perceive/dados/global.dart' as globais;
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:swipe/swipe.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -78,44 +79,108 @@ class _TelaPersonagemState extends State<TelaPersonagem> {
               ),
             ),
           ),
-          body: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text("Pontos de vida: ${_jogador.vida}/10",style: TextStyle(fontSize: 25),),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text("Os pontos de vida representam a saúde do seu personagem e indicam o quão bem ele está.",
-                      style: TextStyle(fontSize: 15),),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text("Ataque: ${_jogador.ataque}",style: TextStyle(fontSize: 25),),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text("Os pontos de ataque do seu personagem representam quanto de dano ele dará por ataque a um inimigo.",style: TextStyle(fontSize: 15),),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text("Defesa: ${_jogador.defesa}",style: TextStyle(fontSize: 25),),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text("Os pontos de defesa do seu personagem representam quanto de dano ele não irá tomar por ataque de um inimigo.",style: TextStyle(fontSize: 15),),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          body: tipoTela(),
         ),
       );
+  }
+
+  tipoTela(){
+    if (globais.Globais.acessibilidadeOn == true) {
+      return Center(
+          child: Swipe(
+            verticalMinVelocity: 100,
+            horizontalMinVelocity: 100,
+            onSwipeUp: () {
+              Navigator.pop(context);
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => TelaInGame(jogadorID: _jogador.id!)));
+            },
+            onSwipeDown: () {
+              flutterTts.stop();
+              flutterTts.speak(
+                  "Tutorial de Comandos: Deslizar o dedo no meio da tela para a direita, vai para a tela de inventário. Deslizar para a  esquerda vai para a tela de Personagem. Delizar para cima Volta ao menu principal.");
+            },
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              alignment: Alignment.topCenter,
+              color: Colors.transparent,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text("Pontos de vida: ${_jogador.vida}/10",style: TextStyle(fontSize: 25),),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text("Os pontos de vida representam a saúde do seu personagem e indicam o quão bem ele está.",
+                          style: TextStyle(fontSize: 15),),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text("Ataque: ${_jogador.ataque}",style: TextStyle(fontSize: 25),),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text("Os pontos de ataque do seu personagem representam quanto de dano ele dará por ataque a um inimigo.",style: TextStyle(fontSize: 15),),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text("Defesa: ${_jogador.defesa}",style: TextStyle(fontSize: 25),),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text("Os pontos de defesa do seu personagem representam quanto de dano ele não irá tomar por ataque de um inimigo.",style: TextStyle(fontSize: 15),),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ));
+    } else {
+      return Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 15,
+                ),
+                Text("Pontos de vida: ${_jogador.vida}/10",style: TextStyle(fontSize: 25),),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Os pontos de vida representam a saúde do seu personagem e indicam o quão bem ele está.",
+                  style: TextStyle(fontSize: 15),),
+                SizedBox(
+                  height: 15,
+                ),
+                Text("Ataque: ${_jogador.ataque}",style: TextStyle(fontSize: 25),),
+                SizedBox(
+                  height: 15,
+                ),
+                Text("Os pontos de ataque do seu personagem representam quanto de dano ele dará por ataque a um inimigo.",style: TextStyle(fontSize: 15),),
+                SizedBox(
+                  height: 15,
+                ),
+                Text("Defesa: ${_jogador.defesa}",style: TextStyle(fontSize: 25),),
+                SizedBox(
+                  height: 15,
+                ),
+                Text("Os pontos de defesa do seu personagem representam quanto de dano ele não irá tomar por ataque de um inimigo.",style: TextStyle(fontSize: 15),),
+              ],
+            ),
+          ),
+        ],
+      );
+    }
   }
 }

@@ -54,53 +54,13 @@ class _telaCarregarJogoState extends State<telaCarregarJogo> {
         )
     );
   }
-
-  Widget corpo() {
-    return SingleChildScrollView(
-      padding: EdgeInsets.all(15),
-      child: Column(
-        children: <Widget>[
-          Text("PERCEIVE",
-              textAlign: TextAlign.center, style: TextStyle(fontSize: 55)),
-          SizedBox(
-              height: 120.0
-          ),
-          Card(
-            margin:  EdgeInsets.fromLTRB(20, 30, 20, 0),
-            child: ListView.builder(
-              padding: EdgeInsets.all(8),
-              itemBuilder: (context,index){
-                return Column(
-                  children: <Widget> [
-                    ListTile(
-                      leading: Icon(Icons.person,
-                          color: Colors.grey,
-                          size: 40.0),
-                      title: Text(_jogadores[index].nome!),
-                    ),
-                    Divider(
-                      height: 5,
-                    )
-                  ],
-                );
-              },
-              itemCount: _jogadores.length,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-
-
-
   Widget _cardJogador(BuildContext context, int index) {
     return GestureDetector(
       onTap: () async{
         globais.Globais.numeroHistoria = _jogadores[index].historia!;
         globais.Globais.nomePlayer = _jogadores[index].nome!;
         globais.Globais.numPlayer = _jogadores[index].id!;
+        globais.Globais.ultimoPlayer = _jogadores[index].id!;
         globais.Globais.restartdemo = false;
         await Navigator.of(context).push(
             MaterialPageRoute(

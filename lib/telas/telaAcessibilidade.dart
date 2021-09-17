@@ -4,6 +4,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 import 'package:perceive/dados/global.dart' as globais;
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:perceive/telas/telaInicial.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -175,8 +176,12 @@ class _TelaAcessibilidadeState extends State<TelaAcessibilidade> {
         leading: new IconButton(
         icon: new Icon(Icons.arrow_back),
           onPressed: () {
-          flutterTts.stop();
-          Get.back();}
+          setState(() {
+            flutterTts.stop();
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => TelaInicial()));
+          });
+          }
             ),
         title: Center(
           child: Text(
