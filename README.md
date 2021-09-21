@@ -1,6 +1,6 @@
 # Perceive
 
-Jogo Perceive
+Jogo Perceive.
 
 ## Descrição do Projeto
 
