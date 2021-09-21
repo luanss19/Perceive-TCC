@@ -29,7 +29,12 @@ class _TelaCreditosState extends State<TelaCreditos> {
       setState(() {
         if (globais.Globais.acessibilidadeOn == true) {
           flutterTts.speak(
-              "A tela Créditos tem três campos de informação.   Primeiro: Desenvolvimento do Aplicativo: Feito por Luan Silva da Silva.  Segundo: Desenvolvimento da História: Feito por Luan Silva da Silva e Pietro Peres Duarte Mesquita da Silva. Terceiro: Professor Orientador: João Júnior da Silva Machado");
+              "A tela Créditos tem três campos de informação.   "
+                  "Primeiro: Desenvolvimento do Aplicativo: Feito por Luan Silva da Silva.  "
+                  "Segundo: Desenvolvimento da História: Feito por Luan Silva da Silva e Pietro Peres Duarte Mesquita da Silva. "
+                  "Terceiro: Professor Orientador: João Júnior da Silva Machado...    "
+                  "Deslize o dedo no meio da tela para cima para voltar para o menu inicial."
+                  "Deslize o dedo para baixo repetir o tutorial.");
         }
       });
     });
@@ -76,7 +81,7 @@ class _TelaCreditosState extends State<TelaCreditos> {
               onSwipeDown: () {
                 flutterTts.stop();
                 flutterTts.speak(
-                    "Tutorial de Comandos: Deslizar o dedo no meio da tela para cima, volta para o menu inicial.");
+                    "Tutorial de Comandos: Deslizar o dedo no meio da tela para cima, volta para o menu inicial. Deslizar o dedo para baixo repete o tutorial.");
               },
               child: Container(
                   height: MediaQuery.of(context).size.height,

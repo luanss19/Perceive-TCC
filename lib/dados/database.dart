@@ -112,7 +112,7 @@ class DatabasePerceive {
    }
  }
 
-  Future<int> deletarJogador(int id) async {
+  Future<int> deletarJogoSalvo(int id) async {
     Database bancoJogador = await instance.database;
     return await bancoJogador.delete(Jogador.tabelaJogador,
         where: "${Jogador.colunaId} = ?",

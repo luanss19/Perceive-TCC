@@ -1,5 +1,6 @@
 class Globais {
   static bool acessibilidadeOn = false;
+  static bool musicaOn = true;
   static double volumeTTS = 1 ;
   static double volumeMusica = 0.1;
   static bool restartdemo = false;

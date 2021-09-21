@@ -38,19 +38,24 @@ class _TelaInicialState extends State<TelaInicial> {
 
   @override
   void initState() {
-    final player = musica;
-    final playing = player.isPlaying.value;
+    if (globais.Globais.musicaOn == true) {
+      if(musica.isPlaying.value == true){
 
-    if (playing != true) {
-      musica.open(Audio('assets/music/background.mp3'),
-          showNotification: false, volume: 0.1, loopMode: LoopMode.single);
+      }else{
+        musica.open(Audio('assets/music/background.mp3'),
+            showNotification: false, volume: 0.1, loopMode: LoopMode.single);
+      }
     }
 
     setState(() {
       flutterTts.stop();
       if (globais.Globais.acessibilidadeOn == true) {
         flutterTts.speak(
-            "A tela inicial contém quatro botões.  Primeiro: Novo Jogo.  Segundo: Continuar Jogo.  Terceiro: Carregar Salvo.  Quarto: Opções de Acessibilidade");
+            "A tela inicial contém quatro botões.  Primeiro: Novo Jogo.  Segundo: Continuar Jogo.  Terceiro: Carregar Salvo.  Quarto: Opções de Acessibilidade. "
+                "Tutorial de Comandos: Deslizar o dedo no meio da tela para cima, vai para a tela de Créditos. "
+                "Deslizar para a  esquerda e direita seleciona qual tela você quer ir. "
+                "Segurar o dedo na tela seleciona a tela."
+                "Deslizar para baixo repete o tutorial.");
       }
       _dbHelper = DatabasePerceive.instance;
     });
@@ -85,11 +90,11 @@ class _TelaInicialState extends State<TelaInicial> {
               } else {
                 if (globais.Globais.acessibilidadeOn == true) {
                   flutterTts.speak(
-                      "Nenhum jogo foi carregado nessa sessão, inicie um jogo salvo no menu Carregar Salvo");
+                      'Nenhum jogo foi carregado nessa sessão, inicie um novo jogo ou escolha um jogo salvo no menu Carregar Salvo');
                 }
                 final snackBar = SnackBar(
                     content: Text(
-                        'Nenhum jogo foi carregado nessa sessão, inicie um jogo salvo no menu Carregar Salvo'));
+                        'Nenhum jogo foi carregado nessa sessão, inicie um novo jogo ou escolha um jogo salvo no menu Carregar Salvo'));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
               break;
@@ -110,14 +115,15 @@ class _TelaInicialState extends State<TelaInicial> {
           verticalMinVelocity: 100,
           horizontalMinVelocity: 100,
         onSwipeDown: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => TelaCreditos()));
-          },
+          flutterTts.stop();
+          flutterTts.speak(
+              "Tutorial de Comandos: Deslizar o dedo no meio da tela para baixo, vai para a tela de Créditos. Deslizar para a  esquerda e direita seleciona qual tela você quer ir. Segurar o dedo na tela seleciona a tela.");
+        },
         onSwipeUp: () {
-            flutterTts.stop();
-            flutterTts.speak(
-                "Tutorial de Comandos: Deslizar o dedo no meio da tela para baixo, vai para a tela de Créditos. Deslizar para a  esquerda e direita seleciona qual tela você quer ir. Segurar o dedo na tela seleciona a tela.");
-          },
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => TelaCreditos()));
+
+        },
           onSwipeRight: () {
             if(tela == 4){
               tela = 1;
@@ -355,11 +361,11 @@ class _TelaInicialState extends State<TelaInicial> {
                   } else {
                     if (globais.Globais.acessibilidadeOn == true) {
                       flutterTts.speak(
-                          "Nenhum jogo foi carregado nessa sessão, inicie um jogo salvo no menu Carregar Salvo");
+                          'Nenhum jogo foi carregado nessa sessão, inicie um novo jogo ou escolha um jogo salvo no menu Carregar Salvo');
                     }
                     final snackBar = SnackBar(
                         content: Text(
-                            'Nenhum jogo foi carregado nessa sessão, inicie um jogo salvo no menu Carregar Salvo'));
+                            'Nenhum jogo foi carregado nessa sessão, inicie um novo jogo ou escolha um jogo salvo no menu Carregar Salvo'));
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
                 },

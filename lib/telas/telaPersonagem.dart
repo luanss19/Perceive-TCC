@@ -39,7 +39,8 @@ class _TelaPersonagemState extends State<TelaPersonagem> {
               "A tela Personagem contém três campos de informação.  "
                   "Primeiro: Pontos de vida: ${_jogador.vida} de 10.Os pontos de vida representam a saúde do seu personagem e indicam o quão bem ele está.  "
                   "Segundo: Ataque: ${_jogador.ataque}.Os pontos de ataque do seu personagem representam quanto de dano ele dará por ataque a um inimigo.  "
-                  "Terceiro: Defesa: ${_jogador.defesa}.Os pontos de defesa do seu personagem representam quanto de dano ele não irá tomar por ataque de um inimigo");
+                  "Terceiro: Defesa: ${_jogador.defesa}.Os pontos de defesa do seu personagem representam quanto de dano ele não irá tomar por ataque de um inimigo."
+                  "Deslize o dedo para cima para voltar a tela de jogo.");
         }});
       });
     });

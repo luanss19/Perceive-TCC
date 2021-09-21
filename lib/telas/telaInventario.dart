@@ -37,7 +37,8 @@ class _TelaInventarioState extends State<TelaInventario> {
                 "A tela Inventário contém três campos de informação.  "
                 "Primeiro: Armas: Você tem uma  Espada:um de ataque.  "
                 "Segundo: Armaduras: Você tem um  Colete de Couro:zero de defesa.  "
-                "Terceiro: Itens: Todos os espaços estão vazios.");
+                "Terceiro: Itens: Todos os espaços estão vazios."
+                "Deslize o dedo para cima para voltar a tela de jogo.");
           }
         });
       });
@@ -67,7 +68,7 @@ class _TelaInventarioState extends State<TelaInventario> {
         onSwipeDown: () {
           flutterTts.stop();
           flutterTts.speak(
-              "Tutorial de Comandos: Deslizar o dedo no meio da tela para a direita, vai para a tela de inventário. Deslizar para a  esquerda vai para a tela de Personagem. Delizar para cima Volta ao menu principal.");
+              "Tutorial de Comandos: Delizar o dedo para cima Volta ao jogo. Deslizar para baixo repete o tutorial.");
         },
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -260,7 +261,7 @@ class _TelaInventarioState extends State<TelaInventario> {
         ),
       ));
     } else {
-      DefaultTabController(
+      return DefaultTabController(
         length: 3,
         child: Scaffold(
           appBar: AppBar(
