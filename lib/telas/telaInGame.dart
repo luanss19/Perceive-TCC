@@ -245,7 +245,7 @@ class _TelaInGameState extends State<TelaInGame> {
               onSwipeDown: () {
               flutterTts.stop();
               flutterTts.speak(
-                  "Tutorial de Comandos: Deslizar o dedo no meio da tela para a direita, vai para a tela de inventário. Deslizar para a  esquerda vai para a tela de Personagem. Delizar para cima Volta ao menu principal.");
+                  "Tutorial de Comandos: Pressionar o dedo na tela por alguns segundos seleciona a escolha um. Dar dois toques na tela seleciona a escolha dois. Deslizar o dedo no meio da tela para a direita, vai para a tela de inventário. Deslizar para a  esquerda vai para a tela de Personagem. Delizar para cima Volta ao menu principal.");
               },
               onSwipeLeft: () {
               Navigator.of(context).push(

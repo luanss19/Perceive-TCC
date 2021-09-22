@@ -68,7 +68,7 @@ class _TelaInventarioState extends State<TelaInventario> {
         onSwipeDown: () {
           flutterTts.stop();
           flutterTts.speak(
-              "Tutorial de Comandos: Delizar o dedo para cima Volta ao jogo. Deslizar para baixo repete o tutorial.");
+              "Tutorial de Comandos: Deslizar o dedo para cima Volta ao jogo. Deslizar para baixo repete o tutorial.");
         },
         child: Container(
           height: MediaQuery.of(context).size.height,

@@ -54,7 +54,7 @@ class _TelaInicialState extends State<TelaInicial> {
             "A tela inicial contém quatro botões.  Primeiro: Novo Jogo.  Segundo: Continuar Jogo.  Terceiro: Carregar Salvo.  Quarto: Opções de Acessibilidade. "
                 "Tutorial de Comandos: Deslizar o dedo no meio da tela para cima, vai para a tela de Créditos. "
                 "Deslizar para a  esquerda e direita seleciona qual tela você quer ir. "
-                "Segurar o dedo na tela seleciona a tela."
+                "Pressionar o dedo na tela por alguns segundos seleciona a tela."
                 "Deslizar para baixo repete o tutorial.");
       }
       _dbHelper = DatabasePerceive.instance;
