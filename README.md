@@ -10,12 +10,7 @@ This project was developed for my Course Completion Work and consists of a Text-
 
 The application has screen reading functionality, using Text to Speech packages. All navigation is done by gestures made by the user on the screen, providing the use of the application by people with total or partial loss of vision.
 
-
-
-
-
-
-
+---
 
 Jogo Perceive. (Portuguese/Português)
 
