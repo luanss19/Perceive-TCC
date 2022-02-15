@@ -29,12 +29,13 @@ class _TelaCreditosState extends State<TelaCreditos> {
       setState(() {
         if (globais.Globais.acessibilidadeOn == true) {
           flutterTts.speak(
-              "A tela Créditos tem três campos de informação.   "
+              "A tela Créditos tem Quatro campos de informação.   "
                   "Primeiro: Desenvolvimento do Aplicativo: Feito por Luan Silva da Silva.  "
                   "Segundo: Desenvolvimento da História: Feito por Luan Silva da Silva e Pietro Peres Duarte Mesquita da Silva. "
                   "Terceiro: Professor Orientador: João Júnior da Silva Machado...    "
                   "Deslize o dedo no meio da tela para cima para voltar para o menu inicial."
-                  "Deslize o dedo para baixo repetir o tutorial.");
+                  "Deslize o dedo para baixo repetir o tutorial."
+                  "Quarto: ");
         }
       });
     });
@@ -232,8 +233,22 @@ class _TelaCreditosState extends State<TelaCreditos> {
                     onTap: () =>
                         launch('http://lattes.cnpq.br/0061415619122233')),
                 SizedBox(
-                  height: 15,
+                  height: 30,
                 ),
+                Text(
+                  "Aplicativo desenvolvido para TCC - TADS",
+                  style: TextStyle(fontSize: 25),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                InkWell(
+                    child: Text('IFSUL-Camaquã',
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue)),
+                    onTap: () =>
+                        launch('http://www.camaqua.ifsul.edu.br/'))
               ],
             ),
           ),

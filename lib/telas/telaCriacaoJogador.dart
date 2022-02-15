@@ -76,7 +76,7 @@ class _criacaoJogadorState extends State<criacaoJogador> {
                       Text("PERCEIVE",
                           textAlign: TextAlign.center, style: TextStyle(fontSize: 55)),
                       SizedBox(
-                          height: 120.0
+                          height: 100.0
                       ),
                       _form(),
                     ],
