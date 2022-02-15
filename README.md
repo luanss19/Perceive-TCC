@@ -1,8 +1,11 @@
-# Perceive 
+<h2 align="center">Perceive</h2><br> 
 
 Game Perceive. (English/Inglês)
 
-## Preview
+## Project description
+
+This project was developed for the Final Paper at my university and consists of a Text-Based RPG game with an accessibility mode that has the function of facilitating the use of the application by people with visual impairments.
+
 ---
 
    <h2 align="center">Preview </h2><br>
@@ -13,9 +16,7 @@ Game Perceive. (English/Inglês)
 
 ---
 
-## Project description
 
-This project was developed for the Final Paper at my university and consists of a Text-Based RPG game with an accessibility mode that has the function of facilitating the use of the application by people with visual impairments.
 
 ## Application operation
 
